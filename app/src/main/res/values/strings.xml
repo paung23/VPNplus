@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">VPN+</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="vpn_on">ON</string>
+    <string name="vpn_off">OFF</string>
+    <string name="vpn_running_broadcast_intent">VPN Running</string>
+
+    <string name="delete_package_title">Delete Application Data</string>
+    <string name="delete_package_message">Are you sure you want to delete all the data that VPN+ has recorded for %s? This action cannot be undone.</string>
+
+    <string name="update_filter_keywords">Update Filter Keywords</string>
+    <string name="update_filter_keywords_title">Update Filter Keywords</string>
+    <string name="update_filter_keywords_message">In the following dialog box, choose the file that contains all keywords that PrivacyGuard should look for in the network traffic.</string>
+
+    <string name="certificate_root_store">Cannot inspect encrypted traffic</string>
+    <string name="certificate_root_store_msg">In order for VPN+ to inspect encrypted traffic, it needs to add a certificate to your device\'s certificate store. This requires that you enter your device\'s PIN and click the \"OK\" button when asked to name the certificate.</string>
+
+    <!-- DataLeak -->
+    <string name="type_label">Type</string>
+    <string name="time_label">Time</string>
+    <string name="content_label">Content</string>
+    <string name="destination_label">Destination</string>
+
+    <string name="leak_singular">leak</string>
+    <string name="leak_plural">leaks</string>
+    <string name="category_ignored">no notifications</string>
+
+    <!-- Preferences -->
+    <string name="pref_leak_display_order_key">pref_leak_display_order</string>
+    <string name="pref_leak_display_order_title">Leak Display Order</string>
+    <string name="pref_leak_display_order_summary">The order to display application leakages.</string>
+    <string name="pref_leak_display_order_dialog_title">Order leaks:</string>
+
+    <string name="pref_graph_domain_size_key">pref_graph_domain_size</string>
+    <string name="pref_graph_domain_size_title">Graph Domain Size</string>
+    <string name="pref_graph_domain_size_summary">The size of the leak report graph domain.</string>
+    <string name="pref_graph_domain_size_dialog_title">Domain size:</string>
+
+</resources>

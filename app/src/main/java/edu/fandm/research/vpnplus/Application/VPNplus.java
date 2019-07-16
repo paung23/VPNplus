@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Utilities;
+package edu.fandm.research.vpnplus.Application;
 
 import android.Manifest;
 import android.app.Application;
@@ -7,7 +7,9 @@ import android.content.pm.PackageManager;
 
 import java.util.logging.Level;
 
-public class AppManager extends Application {
+import edu.fandm.research.vpnplus.Utilities.AndroidLoggingHandler;
+
+public class VPNplus extends Application {
     public final static String EXTRA_DATA = "VPN+.DATA";
     public final static String EXTRA_ID = "VPN+.id";
     public final static String EXTRA_APP_NAME = "VPN+.appName";

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppInterface.AppSummaryActivity">
+    tools:context=".Application.AppInterface.AppSummaryActivity">
 
     <LinearLayout
         android:id="@+id/content"
@@ -28,16 +28,10 @@
             android:text="Package Name"
             android:id="@+id/summary_subtitle" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
         <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/summary_list"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/summary_list"/>
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

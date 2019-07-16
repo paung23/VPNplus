@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Helpers;
+package edu.fandm.research.vpnplus.Application.Helpers;
 
 import android.annotation.TargetApi;
 import android.app.AppOpsManager;

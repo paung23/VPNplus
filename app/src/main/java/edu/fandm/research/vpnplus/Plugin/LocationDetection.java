@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.StringUtil;
 
 public class LocationDetection implements IPlugin {

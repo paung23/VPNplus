@@ -1,54 +1,67 @@
-package edu.fandm.research.vpnplus.AppInterface;
+package edu.fandm.research.vpnplus.Application.AppInterface;
 
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-import edu.fandm.research.vpnplus.Database.DataLeak;
-import edu.fandm.research.vpnplus.Database.DatabaseHandler;
+import edu.fandm.research.vpnplus.Application.Database.CategorySummary;
+import edu.fandm.research.vpnplus.Application.Database.DatabaseHandler;
+import edu.fandm.research.vpnplus.Application.VPNplus;
 import edu.fandm.research.vpnplus.R;
-import edu.fandm.research.vpnplus.Utilities.AppManager;
 
-/**
- * Created by justinhu on 16-03-11.
- */
-public class DetailActivity extends AppCompatActivity {
+public class AppSummaryActivity extends AppCompatActivity {
 
-    private int notifyId;
     private String packageName;
     private String appName;
-    private String category;
-
     private ListView list;
-    private DetailListViewAdapter adapter;
+    private SummaryListViewAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_app_summary);
 
         // Get the message from the intent
         Intent intent = getIntent();
-        notifyId = intent.getIntExtra(AppManager.EXTRA_ID, -1);
-        packageName = intent.getStringExtra(AppManager.EXTRA_PACKAGE_NAME);
-        appName = intent.getStringExtra(AppManager.EXTRA_APP_NAME);
-        category = intent.getStringExtra(AppManager.EXTRA_CATEGORY);
+        packageName= intent.getStringExtra(VPNplus.EXTRA_PACKAGE_NAME);
+        appName = intent.getStringExtra(VPNplus.EXTRA_APP_NAME);
 
-        TextView title = (TextView) findViewById(R.id.detail_title);
-        title.setText(category);
-        TextView subtitle = (TextView) findViewById(R.id.detail_subtitle);
-        subtitle.setText("[" + appName + "]");
+        TextView title = (TextView) findViewById(R.id.summary_title);
+        title.setText(appName);
+        TextView subtitle = (TextView) findViewById(R.id.summary_subtitle);
+        subtitle.setText("[" + packageName + "]");
 
-        list = (ListView) findViewById(R.id.detail_list);
+        list = (ListView) findViewById(R.id.summary_list);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CategorySummary category = (CategorySummary) parent.getItemAtPosition(position);
+                Intent intent;
+
+                intent = new Intent(AppSummaryActivity.this, DetailActivity.class);
+
+                intent.putExtra(VPNplus.EXTRA_ID, category.notifyId);
+                intent.putExtra(VPNplus.EXTRA_PACKAGE_NAME, packageName);
+                intent.putExtra(VPNplus.EXTRA_APP_NAME, appName);
+                intent.putExtra(VPNplus.EXTRA_CATEGORY, category.category);
+                intent.putExtra(VPNplus.EXTRA_IGNORE, category.ignore);
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -58,24 +71,15 @@ public class DetailActivity extends AppCompatActivity {
         updateList();
     }
 
-    private void updateList() {
+    private void updateList(){
         DatabaseHandler db = DatabaseHandler.getInstance(this);
-        List<DataLeak> details = db.getAppLeaks(packageName, category);
+        List<CategorySummary> details = db.getAppDetail(packageName);
 
         if (details == null) {
             return;
         }
-
         if (adapter == null) {
-            adapter = new DetailListViewAdapter(this, details);
-
-            View header = getLayoutInflater().inflate(R.layout.listview_detail, null);
-            ((TextView) header.findViewById(R.id.detail_type)).setText(R.string.type_label);
-            ((TextView) header.findViewById(R.id.detail_time)).setText(R.string.time_label);
-            //((TextView) header.findViewById(R.id.detail_content)).setText(R.string.content_label);
-            ((TextView) header.findViewById(R.id.detail_destination)).setText(R.string.destination_label);
-
-            list.addHeaderView(header);
+            adapter = new SummaryListViewAdapter(this, details);
             list.setAdapter(adapter);
         } else {
             adapter.updateData(details);

@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.HashHelpers;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 
 /**
  * Created by frank on 23/07/14.

@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:layout_width="64dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:text="Type"
@@ -25,7 +25,7 @@
 
 
     <TextView
-        android:layout_width="128dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:text="Time Stamp"
@@ -40,11 +40,26 @@
         android:background="@color/material_blue_grey_800" />
 
     <TextView
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:text="Content"
+        android:textAlignment="center"
+        android:id="@+id/detail_content" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/material_blue_grey_800" />
+
+    <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="long long content"
+        android:text="Destination"
         android:textAlignment="center"
         android:id="@+id/detail_destination"
         android:gravity="center_horizontal" />

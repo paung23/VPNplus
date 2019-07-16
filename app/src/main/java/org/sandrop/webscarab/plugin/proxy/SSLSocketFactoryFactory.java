@@ -110,8 +110,8 @@ public class SSLSocketFactoryFactory {
             //        + " at " + new Date()
             //        + ",ou=OWASP Custom CA,o=OWASP,l=OWASP,st=OWASP,c=OWASP");
             
-            CA_NAME = new X500Principal("cn=VPN+ Custom CA"
-                    + ",ou=VPN+ Custom CA,o=VPN+,l=VPN+,st=VPN+,c=VPN+");
+            CA_NAME = new X500Principal("cn=VPNplus Custom CA"
+                    + ",ou=VPNplus Custom CA,o=VPNplus,l=VPNplus,st=VPNplus,c=VPNplus");
         } catch (Exception ex) {
             ex.printStackTrace();
             CA_NAME = null;
@@ -383,7 +383,7 @@ public class SSLSocketFactoryFactory {
     }
 
     protected X500Principal getSubjectPrincipal(String host) {
-        return new X500Principal("cn=" + host + ",ou=UNTRUSTED VPN+,o=UNTRUSTED VPN+");
+        return new X500Principal("cn=" + host + ",ou=UNTRUSTED VPNplus,o=UNTRUSTED VPNplus");
     }
 
     protected BigInteger getNextSerialNo() {

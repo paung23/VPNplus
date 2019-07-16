@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Helpers;
+package edu.fandm.research.vpnplus.Application;
 
 import android.location.Location;
 import android.os.Environment;
@@ -15,32 +15,27 @@ import java.util.Locale;
 import java.util.Map;
 
 import edu.fandm.research.vpnplus.BuildConfig;
-import edu.fandm.research.vpnplus.Utilities.AppManager;
 import edu.fandm.research.vpnplus.VPNConfiguration.ConnectionMetaData;
 
 public class Logger {
     private static final String TIME_STAMP_FORMAT = "MM-dd HH:mm:ss.SSS";
     private static final SimpleDateFormat df = new SimpleDateFormat(TIME_STAMP_FORMAT, Locale.CANADA);//TODO: auto detect locale
+
     private static File logFile = new File(getDiskCacheDir(), "Log");
     private static File trafficFile = new File(getDiskCacheDir(), "NetworkTraffic");
     private static File locationFile = new File(getDiskCacheDir(), "LastLocations");
 
-    /**
-     * Returns a dir  for cache storage
-     *
-     * @return SD storage for cash or internal storage for cash
-     */
     public static File getDiskCacheDir() {
         File cacheDir = null;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable()) {
-            cacheDir = AppManager.getAppContext().getExternalCacheDir();
+            cacheDir = VPNplus.getAppContext().getExternalCacheDir();
         }
         if (cacheDir == null) {
             if (BuildConfig.DEBUG) {
                 Log.d("LoggerManager", "External Cache Directory not available.");
             }
-            cacheDir = AppManager.getAppContext().getCacheDir();
+            cacheDir = VPNplus.getAppContext().getCacheDir();
         }
         if (BuildConfig.DEBUG) {
             Log.d("LoggerManager", "Logging to " + cacheDir);
@@ -52,13 +47,13 @@ public class Logger {
         File fileDir = null;
         if (BuildConfig.DEBUG && (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                || !Environment.isExternalStorageRemovable())) {
-            fileDir = AppManager.getAppContext().getExternalFilesDir(null);
+            fileDir = VPNplus.getAppContext().getExternalFilesDir(null);
         }
         if (fileDir == null) {
             if (BuildConfig.DEBUG) {
                 Log.d("LoggerManager", "External Cache Directory not available.");
             }
-            fileDir = AppManager.getAppContext().getFilesDir();
+            fileDir = VPNplus.getAppContext().getFilesDir();
         }
         if (BuildConfig.DEBUG) {
             Log.d("LoggerManager", "Storing files in " + fileDir);

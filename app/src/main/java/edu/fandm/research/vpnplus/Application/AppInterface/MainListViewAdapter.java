@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.AppInterface;
+package edu.fandm.research.vpnplus.Application.AppInterface;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.fandm.research.vpnplus.Database.AppSummary;
+import edu.fandm.research.vpnplus.Application.Database.AppSummary;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.R;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 
 public class MainListViewAdapter extends BaseAdapter {
 

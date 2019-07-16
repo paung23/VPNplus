@@ -2,11 +2,11 @@ package edu.fandm.research.vpnplus.VPNConfiguration;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Plugin.IPlugin;
 import edu.fandm.research.vpnplus.Plugin.LeakReport;
 import edu.fandm.research.vpnplus.Plugin.TrafficRecord;
 import edu.fandm.research.vpnplus.Plugin.TrafficReport;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
 public class FilterThread extends Thread {

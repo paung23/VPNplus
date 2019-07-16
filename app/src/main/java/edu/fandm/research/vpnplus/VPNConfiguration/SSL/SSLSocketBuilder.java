@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 
 public class SSLSocketBuilder {
     private static final String TAG = SSLSocketBuilder.class.getSimpleName();

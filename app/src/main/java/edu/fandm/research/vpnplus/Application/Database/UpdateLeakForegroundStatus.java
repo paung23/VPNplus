@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Database;
+package edu.fandm.research.vpnplus.Application.Database;
 
 import android.annotation.TargetApi;
 import android.app.usage.UsageEvents;
@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import edu.fandm.research.vpnplus.Helpers.PermissionsHelper;
+import edu.fandm.research.vpnplus.Application.Helpers.PermissionsHelper;
 
 @TargetApi(22)
 public class UpdateLeakForegroundStatus extends AsyncTask<Long, Void, Void> {

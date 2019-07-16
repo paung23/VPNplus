@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.AppInterface;
+package edu.fandm.research.vpnplus.Application.AppInterface;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.fandm.research.vpnplus.Database.CategorySummary;
+import edu.fandm.research.vpnplus.Application.Database.CategorySummary;
 import edu.fandm.research.vpnplus.R;
 
 /**

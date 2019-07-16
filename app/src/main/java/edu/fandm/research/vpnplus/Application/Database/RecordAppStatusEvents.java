@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Database;
+package edu.fandm.research.vpnplus.Application.Database;
 
 import android.annotation.TargetApi;
 import android.app.usage.UsageEvents;
@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import edu.fandm.research.vpnplus.Helpers.PermissionsHelper;
+import edu.fandm.research.vpnplus.Application.Helpers.PermissionsHelper;
 
 /**
  * Created by lucas on 07/04/17.

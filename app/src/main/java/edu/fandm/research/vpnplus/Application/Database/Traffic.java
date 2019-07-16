@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Database;
+package edu.fandm.research.vpnplus.Application.Database;
 
 public class Traffic {
     private String appName;

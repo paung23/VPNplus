@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Database;
+package edu.fandm.research.vpnplus.Application.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,10 +19,10 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Plugin.LeakInstance;
 import edu.fandm.research.vpnplus.Plugin.LeakReport;
 import edu.fandm.research.vpnplus.Plugin.TrafficReport;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;

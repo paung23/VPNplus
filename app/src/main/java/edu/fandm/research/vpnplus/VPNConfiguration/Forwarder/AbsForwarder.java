@@ -19,8 +19,7 @@
 
 package edu.fandm.research.vpnplus.VPNConfiguration.Forwarder;
 
-
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPHeader;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPPayLoad;

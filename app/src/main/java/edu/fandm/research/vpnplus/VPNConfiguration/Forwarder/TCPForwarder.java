@@ -26,8 +26,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import edu.fandm.research.vpnplus.Utilities.AppManager;
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
+import edu.fandm.research.vpnplus.Application.VPNplus;
 import edu.fandm.research.vpnplus.VPNConfiguration.LocalServer;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPPayLoad;
@@ -324,7 +324,7 @@ public class TCPForwarder extends AbsForwarder { //implements ICommunication {
         try {
             socketToLocalServer.getOutputStream().write(request);
             if (DEBUG) Logger.d(TAG, request.length + " bytes forwarded to LocalServer from port: " + src_port);
-            AppManager.tcpForwarderWorkerWrite += request.length;
+            VPNplus.tcpForwarderWorkerWrite += request.length;
         } catch (IOException e) {
             e.printStackTrace();
         }

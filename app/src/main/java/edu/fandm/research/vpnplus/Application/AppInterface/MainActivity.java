@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.AppInterface;
+package edu.fandm.research.vpnplus.Application.AppInterface;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -34,14 +34,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import edu.fandm.research.vpnplus.Database.AppSummary;
-import edu.fandm.research.vpnplus.Database.DatabaseHandler;
-import edu.fandm.research.vpnplus.Helpers.ActivityRequestCodes;
-import edu.fandm.research.vpnplus.Helpers.PreferenceHelper;
+import edu.fandm.research.vpnplus.Application.Database.AppSummary;
+import edu.fandm.research.vpnplus.Application.Database.DatabaseHandler;
+import edu.fandm.research.vpnplus.Application.Helpers.ActivityRequestCodes;
+import edu.fandm.research.vpnplus.Application.Helpers.PreferenceHelper;
+import edu.fandm.research.vpnplus.Application.Logger;
+import edu.fandm.research.vpnplus.Application.VPNplus;
 import edu.fandm.research.vpnplus.R;
-import edu.fandm.research.vpnplus.Utilities.AppManager;
 import edu.fandm.research.vpnplus.Utilities.CertificateManager;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
 public class MainActivity extends AppCompatActivity {
@@ -253,9 +253,9 @@ public class MainActivity extends AppCompatActivity {
 
                     AppSummary app = (AppSummary)parent.getItemAtPosition(position);
 
-                    intent.putExtra(AppManager.EXTRA_PACKAGE_NAME, app.getPackageName());
-                    intent.putExtra(AppManager.EXTRA_APP_NAME, app.getAppName());
-                    intent.putExtra(AppManager.EXTRA_IGNORE, app.getIgnore());
+                    intent.putExtra(VPNplus.EXTRA_PACKAGE_NAME, app.getPackageName());
+                    intent.putExtra(VPNplus.EXTRA_APP_NAME, app.getAppName());
+                    intent.putExtra(VPNplus.EXTRA_IGNORE, app.getIgnore());
 
                     startActivity(intent);
                 }

@@ -8,13 +8,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import edu.fandm.research.vpnplus.Utilities.AppManager;
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
+import edu.fandm.research.vpnplus.Application.VPNplus;
 
 public class TCPForwarderWorker extends Thread {
     private static final String TAG = TCPForwarderWorker.class.getSimpleName();
     private static final boolean DEBUG = false;
-    private final int limit = 1368;
+    private final int limit = 32767;
     //private SocketChannel socketChannel;
     //private Selector selector;
     private Socket socket;
@@ -51,7 +51,7 @@ public class TCPForwarderWorker extends Thread {
             InputStream in = socket.getInputStream();
             while ((got = in.read(buff)) > -1) {
                 if (DEBUG) Logger.d(TAG, got + " response bytes to be written to " + src_port);
-                AppManager.tcpForwarderWorkerRead += got;
+                VPNplus.tcpForwarderWorkerRead += got;
                 byte[] temp = new byte[got];
                 System.arraycopy(buff, 0, temp, 0, got);
                 forwarder.forwardResponse(temp);
@@ -110,7 +110,7 @@ public class TCPForwarderWorker extends Thread {
            //     socketChannel.socket().close();
            //     socketChannel.close();
             socket.close();
-                Logger.d(TAG, "closed socket for port " + src_port);
+            Logger.d(TAG, "closed socket for port " + src_port);
            // }
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,7 +132,7 @@ public class TCPForwarderWorker extends Thread {
                             stream.write(temp);
                             stream.flush();
                             Logger.d(TAG, temp.length + " bytes forwarded to LocalServer from port: " + src_port);
-                            AppManager.tcpForwarderWorkerWrite += temp.length;
+                            VPNplus.tcpForwarderWorkerWrite += temp.length;
                             //if (tempBuf.hasRemaining()) {
                             //    Thread.sleep(10);
                             //} else break;

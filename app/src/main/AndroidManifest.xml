@@ -17,6 +17,7 @@
         android:required="true" />
 
     <application
+        android:name="edu.fandm.research.vpnplus.Application.VPNplus"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,7 +30,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".AppInterface.MainActivity"
+            android:name=".Application.AppInterface.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop"
@@ -42,26 +43,26 @@
         </activity>
 
         <activity
-            android:name=".AppInterface.AppSummaryActivity"
+            android:name=".Application.AppInterface.AppSummaryActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".AppInterface.MainActivity"
+            android:parentActivityName=".Application.AppInterface.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AppInterface.MainActivity" />
+                android:value=".Application.AppInterface.MainActivity" />
         </activity>
 
         <activity
-            android:name=".AppInterface.DetailActivity"
-            android:parentActivityName=".AppInterface.AppSummaryActivity"
+            android:name=".Application.AppInterface.DetailActivity"
+            android:parentActivityName=".Application.AppInterface.AppSummaryActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".AppInterface.MyPreferencesActivity"
-            android:parentActivityName=".AppInterface.MainActivity"
+            android:name=".Application.AppInterface.MyPreferencesActivity"
+            android:parentActivityName=".Application.AppInterface.MainActivity"
             android:screenOrientation="portrait"/>
 
-        <receiver android:name=".Utilities.ActionReceiver"/>
+        <receiver android:name=".Application.ActionReceiver"/>
 
         <service
             android:name=".VPNConfiguration.VPNservice.MyVpnService"
@@ -71,7 +72,7 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".Database.RecordAppStatusEvents" >
+        <receiver android:name=".Application.Database.RecordAppStatusEvents" >
             <intent-filter>
                 <action android:name="android.intent.action.DATE_CHANGED" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />

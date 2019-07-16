@@ -26,14 +26,14 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.Forwarder.ForwarderPools;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPDatagram;
 
 public class TunReadThread extends Thread {
     private final FileInputStream localIn;
     private final FileChannel localInChannel;
-    private final int LIMIT = 2048;
+    private final int LIMIT = 32767;
     private final ForwarderPools forwarderPools;
     private final Dispatcher dispatcher;
     private LinkedBlockingQueue<IPDatagram> readQueue = new LinkedBlockingQueue<>();

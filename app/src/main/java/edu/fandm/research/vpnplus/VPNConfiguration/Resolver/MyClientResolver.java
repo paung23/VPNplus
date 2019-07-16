@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.net.InetAddress;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 
 public class MyClientResolver implements IClientResolver {
   private static boolean DEBUG = false;

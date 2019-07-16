@@ -1,11 +1,11 @@
-package edu.fandm.research.vpnplus.Utilities;
+package edu.fandm.research.vpnplus.Application;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import edu.fandm.research.vpnplus.Database.DatabaseHandler;
+import edu.fandm.research.vpnplus.Application.Database.DatabaseHandler;
 
 public class ActionReceiver extends BroadcastReceiver {
     public ActionReceiver() {}

@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Helpers;
+package edu.fandm.research.vpnplus.Application.Helpers;
 
 public class ActivityRequestCodes {
     public static final int REQUEST_VPN = 1;

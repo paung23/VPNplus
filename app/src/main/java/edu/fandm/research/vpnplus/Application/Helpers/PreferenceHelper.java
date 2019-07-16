@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Helpers;
+package edu.fandm.research.vpnplus.Application.Helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 
 import java.util.Comparator;
 
-import edu.fandm.research.vpnplus.Database.AppSummary;
+import edu.fandm.research.vpnplus.Application.Database.AppSummary;
 import edu.fandm.research.vpnplus.R;
 
 /**

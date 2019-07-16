@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.StringUtil;
 
 /**

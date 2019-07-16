@@ -25,8 +25,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import edu.fandm.research.vpnplus.Utilities.AppManager;
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
+import edu.fandm.research.vpnplus.Application.VPNplus;
 import edu.fandm.research.vpnplus.VPNConfiguration.ConnectionMetaData;
 import edu.fandm.research.vpnplus.VPNConfiguration.FilterThread;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
@@ -35,7 +35,7 @@ public class LocalServerForwarder extends Thread {
 
     private static final String TAG = LocalServerForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
-    private static int LIMIT = 1368;
+    private static int LIMIT = 32767;
 
     private boolean outgoing = false;
     private MyVpnService vpnService;
@@ -102,15 +102,15 @@ public class LocalServerForwarder extends Thread {
     public void run() {
 
         FilterThread filterObject = null;
-        if (!AppManager.asynchronous) filterObject = new FilterThread(vpnService, metaData);
+        if (!VPNplus.asynchronous) filterObject = new FilterThread(vpnService, metaData);
 
         try {
             byte[] buff = new byte[LIMIT];
             int got;
             while ((got = in.read(buff)) > -1) {
-                if (AppManager.doFilter) {
+                if (VPNplus.doFilter) {
                     String msg = new String(buff, 0, got);
-                    if (AppManager.asynchronous) {
+                    if (VPNplus.asynchronous) {
                         vpnService.getFilterThread().offer(msg, metaData);
                     } else {
                         filterObject.filter(msg);

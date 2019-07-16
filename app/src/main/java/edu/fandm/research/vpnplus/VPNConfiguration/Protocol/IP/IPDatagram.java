@@ -3,8 +3,8 @@ package edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.ByteOperations;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.TCP.TCPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.UDP.UDPDatagram;
 

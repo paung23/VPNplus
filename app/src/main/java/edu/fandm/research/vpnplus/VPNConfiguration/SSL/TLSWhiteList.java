@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Random;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 
 public class TLSWhiteList {
     /* number of consecutive failed SSL interception attempts we need to see until we decide that a site uses

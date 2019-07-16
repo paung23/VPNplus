@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.AppInterface;
+package edu.fandm.research.vpnplus.Application.AppInterface;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -13,11 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Plugin.KeywordDetection;
 import edu.fandm.research.vpnplus.R;
 import edu.fandm.research.vpnplus.Utilities.FileChooser;
 import edu.fandm.research.vpnplus.Utilities.FileUtils;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 
 /**
  * Created by lucas on 05/02/17.

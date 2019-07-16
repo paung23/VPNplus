@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.Database;
+package edu.fandm.research.vpnplus.Application.Database;
 
 import java.text.ParseException;
 import java.util.Date;

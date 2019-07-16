@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 
 /**
  * @author Eric Woojung Kim [w3kim@uwaterloo.ca]
@@ -78,7 +78,7 @@ public class KeywordDetection implements IPlugin {
                         String keyword = scanner.nextLine();
                         if (!keyword.isEmpty())
                             keywords.add(keyword);
-                            if (DEBUG) Logger.d(TAG, "keyword: " + keyword);
+                        if (DEBUG) Logger.d(TAG, "keyword: " + keyword);
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

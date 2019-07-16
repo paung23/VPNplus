@@ -13,14 +13,14 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.CertificateManager;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.Forwarder.LocalServerForwarder;
 import edu.fandm.research.vpnplus.VPNConfiguration.SSL.SSLSocketBuilder;
 import edu.fandm.research.vpnplus.VPNConfiguration.SSL.TLSWhiteList;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
-import static edu.fandm.research.vpnplus.Helpers.Logger.getDiskFileDir;
+import static edu.fandm.research.vpnplus.Application.Logger.getDiskFileDir;
 
 public class LocalServer extends Thread {
     public static final int SSLPort = 443;

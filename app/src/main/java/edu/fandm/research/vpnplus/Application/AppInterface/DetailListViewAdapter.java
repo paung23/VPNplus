@@ -1,4 +1,4 @@
-package edu.fandm.research.vpnplus.AppInterface;
+package edu.fandm.research.vpnplus.Application.AppInterface;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.fandm.research.vpnplus.Database.DataLeak;
+import edu.fandm.research.vpnplus.Application.Database.DataLeak;
 import edu.fandm.research.vpnplus.R;
 
 /**
@@ -57,7 +57,7 @@ public class DetailListViewAdapter extends BaseAdapter {
 
             holder.type = (TextView) convertView.findViewById(R.id.detail_type);
             holder.time = (TextView) convertView.findViewById(R.id.detail_time);
-            //holder.content = (TextView) convertView.findViewById(R.id.detail_content);
+            holder.content = (TextView) convertView.findViewById(R.id.detail_content);
             holder.destination = (TextView) convertView.findViewById(R.id.detail_destination);
 
             convertView.setTag(holder);
@@ -68,14 +68,14 @@ public class DetailListViewAdapter extends BaseAdapter {
         DataLeak leak = list.get(position);
         holder.type.setText(leak.getType());
         holder.time.setText(leak.getTimestamp());
-        //holder.content.setText(leak.getLeakContent());
+        holder.content.setText(leak.getLeakContent());
         holder.destination.setText(leak.getDestination());
         return convertView;
     }
 
     public static class ViewHolder {
         public TextView type;
-        //public TextView content;
+        public TextView content;
         public TextView time;
         public TextView destination;
     }

@@ -19,7 +19,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.cert.CertificateFactory;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
 public class CertificateManager {
@@ -48,7 +48,7 @@ public class CertificateManager {
             X509Certificate fileCACert = getCACertificate(dir, caName);
             if (fileCACert == null)
                 return null;
-            //Logger.d(TAG, fileCACert.toString());
+            Logger.d(TAG, fileCACert.toString());
 
             KeyStore ks = KeyStore.getInstance("AndroidCAStore");
             if (ks == null)

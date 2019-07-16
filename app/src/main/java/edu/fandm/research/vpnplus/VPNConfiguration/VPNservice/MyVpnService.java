@@ -39,8 +39,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import edu.fandm.research.vpnplus.AppInterface.AppSummaryActivity;
-import edu.fandm.research.vpnplus.Database.DatabaseHandler;
+
+import edu.fandm.research.vpnplus.Application.ActionReceiver;
+import edu.fandm.research.vpnplus.Application.AppInterface.AppSummaryActivity;
+import edu.fandm.research.vpnplus.Application.Database.DatabaseHandler;
+import edu.fandm.research.vpnplus.Application.Logger;
+import edu.fandm.research.vpnplus.Application.VPNplus;
 import edu.fandm.research.vpnplus.Plugin.ContactDetection;
 import edu.fandm.research.vpnplus.Plugin.DeviceDetection;
 import edu.fandm.research.vpnplus.Plugin.IPlugin;
@@ -50,9 +54,6 @@ import edu.fandm.research.vpnplus.Plugin.LocationDetection;
 import edu.fandm.research.vpnplus.Plugin.TrafficRecord;
 import edu.fandm.research.vpnplus.Plugin.TrafficReport;
 import edu.fandm.research.vpnplus.R;
-import edu.fandm.research.vpnplus.Utilities.ActionReceiver;
-import edu.fandm.research.vpnplus.Utilities.AppManager;
-import edu.fandm.research.vpnplus.Helpers.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.FilterThread;
 import edu.fandm.research.vpnplus.VPNConfiguration.Forwarder.ForwarderPools;
 import edu.fandm.research.vpnplus.VPNConfiguration.LocalServer;
@@ -66,8 +67,8 @@ import edu.fandm.research.vpnplus.VPNConfiguration.Resolver.MyNetworkHostNameRes
 public class MyVpnService extends VpnService implements Runnable {
     public static final String CADir = Logger.getDiskFileDir().getAbsolutePath();
     // also update SSLSocketFactoryFactory.java if CAName is modified
-    public static final String CAName = "VPN+ Custom CA";
-    public static final String CertName = "VPN+_Cert";
+    public static final String CAName = "VPNplus Custom CA";
+    public static final String CertName = "VPNplus_Cert";
     public static final String KeyType = "PKCS12";
     public static final String Password = "";
 
@@ -198,7 +199,7 @@ public class MyVpnService extends VpnService implements Runnable {
         writeThread = new TunWriteThread(mInterface.getFileDescriptor(), this);
         writeThread.start();
 
-        if (AppManager.asynchronous) {
+        if (VPNplus.asynchronous) {
             filterThread = new FilterThread(this);
             // reduce priority of filter thread given that it runs asynchronously
             filterThread.setPriority(filterThread.getPriority() - 1);
@@ -218,7 +219,7 @@ public class MyVpnService extends VpnService implements Runnable {
             while (localServer.isAlive())
                 localServer.join();
 
-            if (AppManager.asynchronous && filterThread.isAlive())
+            if (VPNplus.asynchronous && filterThread.isAlive())
                 filterThread.join();
 
         } catch (InterruptedException e) {
@@ -330,9 +331,9 @@ public class MyVpnService extends VpnService implements Runnable {
 
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, AppSummaryActivity.class);
-        resultIntent.putExtra(AppManager.EXTRA_PACKAGE_NAME, leak.metaData.packageName);
-        resultIntent.putExtra(AppManager.EXTRA_APP_NAME, leak.metaData.appName);
-        resultIntent.putExtra(AppManager.EXTRA_IGNORE, 0);
+        resultIntent.putExtra(VPNplus.EXTRA_PACKAGE_NAME, leak.metaData.packageName);
+        resultIntent.putExtra(VPNplus.EXTRA_APP_NAME, leak.metaData.appName);
+        resultIntent.putExtra(VPNplus.EXTRA_IGNORE, 0);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -369,7 +370,7 @@ public class MyVpnService extends VpnService implements Runnable {
             readThread.interrupt();
             writeThread.interrupt();
             localServer.interrupt();
-            if (AppManager.asynchronous) filterThread.interrupt();
+            if (VPNplus.asynchronous) filterThread.interrupt();
             mInterface.close();
         } catch (IOException e) {
             Logger.e(TAG, e.toString() + "\n" + Arrays.toString(e.getStackTrace()));

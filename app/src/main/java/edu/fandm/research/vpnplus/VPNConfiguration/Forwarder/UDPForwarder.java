@@ -25,7 +25,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPPayLoad;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.UDP.UDPDatagram;
@@ -34,7 +34,7 @@ import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 /**
  * Created by frank on 2014-03-29.
  */
-public class UDPForwarder extends AbsForwarder { //} implements ICommunication {
+public class UDPForwarder extends AbsForwarder {
     private static final String TAG = UDPForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
     private final int LIMIT = 32767;

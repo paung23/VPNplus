@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.fandm.research.vpnplus.Helpers.Logger;
+import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
 public class MyNetworkHostNameResolver {
@@ -153,10 +153,7 @@ public class MyNetworkHostNameResolver {
 
   private void getCertificateData(SiteData newSiteData){
     if (!siteData.containsKey(newSiteData.sourcePort)){
-      if (LOGD) Logger.d(TAG, "Add hostname to resolve :" +
-        newSiteData.tcpAddress + " source port " +
-        newSiteData.sourcePort + " uid " +
-        newSiteData.appUID);
+      if (LOGD) Logger.d(TAG, "Add hostname to resolve :" + newSiteData.tcpAddress + " source port " + newSiteData.sourcePort + " uid " + newSiteData.appUID);
       unresolvedSiteData.add(newSiteData);
     }
   }
@@ -215,10 +212,7 @@ public class MyNetworkHostNameResolver {
       if (LOGD) Logger.d(TAG, "Nothing found for site for port " + port);
       return secureHostInit;
     }else{
-      if (LOGD) Logger.d(TAG, "Having site for port " + port + " "
-        +  secureHost.name + " addr: "
-        + secureHost.tcpAddress
-        + " port " + secureHost.destPort);
+      if (LOGD) Logger.d(TAG, "Having site for port " + port + " " +  secureHost.name + " addr: " + secureHost.tcpAddress + " port " + secureHost.destPort);
     }
     return secureHost;
   }

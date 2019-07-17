@@ -50,14 +50,13 @@ public class DetailListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview_detail, null);
             holder = new ViewHolder();
 
             holder.type = (TextView) convertView.findViewById(R.id.detail_type);
             holder.time = (TextView) convertView.findViewById(R.id.detail_time);
-            holder.content = (TextView) convertView.findViewById(R.id.detail_content);
+            holder.classification = (TextView) convertView.findViewById(R.id.detail_classification);
             holder.destination = (TextView) convertView.findViewById(R.id.detail_destination);
 
             convertView.setTag(holder);
@@ -68,14 +67,14 @@ public class DetailListViewAdapter extends BaseAdapter {
         DataLeak leak = list.get(position);
         holder.type.setText(leak.getType());
         holder.time.setText(leak.getTimestamp());
-        holder.content.setText(leak.getLeakContent());
+        holder.classification.setText(leak.getLeakClassification());
         holder.destination.setText(leak.getDestination());
         return convertView;
     }
 
     public static class ViewHolder {
         public TextView type;
-        public TextView content;
+        public TextView classification;
         public TextView time;
         public TextView destination;
     }

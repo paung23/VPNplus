@@ -57,7 +57,6 @@ public class SummaryListViewAdapter extends BaseAdapter {
 
             holder.category = (TextView)convertView.findViewById(R.id.summary_category);
             holder.count = (TextView)convertView.findViewById(R.id.summary_count);
-            holder.ignore = (TextView)convertView.findViewById(R.id.summary_ignore);
             holder.countString = (TextView)convertView.findViewById(R.id.summary_count_string);
 
             convertView.setTag(holder);
@@ -70,19 +69,12 @@ public class SummaryListViewAdapter extends BaseAdapter {
         holder.count.setText(String.valueOf(category.count));
         holder.countString.setText(category.count == 1 ? R.string.leak_singular : R.string.leak_plural);
 
-        if (category.ignore == 0) {
-            holder.ignore.setVisibility(View.INVISIBLE);
-        } else {
-            holder.ignore.setVisibility(View.VISIBLE);
-        }
-
         return convertView;
     }
 
     public static class ViewHolder {
         public TextView category;
         public TextView count;
-        public TextView ignore;
         public TextView countString;
     }
 }

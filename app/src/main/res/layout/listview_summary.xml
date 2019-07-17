@@ -21,13 +21,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/summary_category" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/category_ignored"
-            android:visibility="visible"
-            android:id="@+id/summary_ignore" />
     </LinearLayout>
 
     <LinearLayout

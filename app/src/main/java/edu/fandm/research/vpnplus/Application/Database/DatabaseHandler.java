@@ -203,9 +203,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             destIP = traffic.metaData.destIP;
         }
         Cursor cursor = mDB.query(TABLE_TRAFFIC_SUMMARY,
-                new String[]{KEY_TRAFFIC_ID, KEY_TRAFFIC_SIZE},
-                KEY_TRAFFIC_APP_NAME + "=? AND " + KEY_TRAFFIC_DEST_ADDR + "=? AND "
-                        + KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=?",
+                new String[]{KEY_TRAFFIC_ID, KEY_TRAFFIC_SIZE}, KEY_TRAFFIC_APP_NAME + "=? AND " + KEY_TRAFFIC_DEST_ADDR + "=? AND " + KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=?",
                 new String[]{traffic.metaData.appName, destIP, Integer.toString(encryption), Integer.toString(outgoing)}, null, null, null, null);
 
         if (cursor != null) {
@@ -218,9 +216,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_TRAFFIC_DIRECTION_OUT, outgoing);
                 mDB.insert(TABLE_TRAFFIC_SUMMARY, null, values);
                 cursor = mDB.query(TABLE_TRAFFIC_SUMMARY,
-                        new String[]{KEY_TRAFFIC_ID, KEY_TRAFFIC_SIZE},
-                        KEY_TRAFFIC_APP_NAME + "=? AND " + KEY_TRAFFIC_DEST_ADDR + "=? AND "
-                                + KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=?",
+                        new String[]{KEY_TRAFFIC_ID, KEY_TRAFFIC_SIZE}, KEY_TRAFFIC_APP_NAME + "=? AND " + KEY_TRAFFIC_DEST_ADDR + "=? AND " + KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=?",
                         new String[]{traffic.metaData.appName, destIP, Integer.toString(encryption)}, null, null, null, null);
             }
             if (!cursor.moveToFirst()) {
@@ -258,8 +254,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public List<Traffic> getTraffics(String appName, boolean encrypted, boolean outgoing) {
         List<Traffic> traffics = new ArrayList<>();
-        Cursor cursor = mDB.query(TABLE_TRAFFIC_SUMMARY, new String[]{KEY_TRAFFIC_DEST_ADDR, KEY_TRAFFIC_SIZE},
-                KEY_TRAFFIC_APP_NAME + "=? AND " + KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=? ",
+        Cursor cursor = mDB.query(TABLE_TRAFFIC_SUMMARY,
+                new String[]{KEY_TRAFFIC_DEST_ADDR, KEY_TRAFFIC_SIZE}, KEY_TRAFFIC_APP_NAME + "=? AND " + KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=? ",
                 new String[]{appName, encrypted ? "1" : "0", outgoing ? "1" : "0"}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -276,8 +272,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public List<Traffic> getTraffics(boolean encrypted, boolean outgoing) {
         List<Traffic> traffics = new ArrayList<>();
-        Cursor cursor = mDB.query(TABLE_TRAFFIC_SUMMARY, new String[]{KEY_TRAFFIC_APP_NAME, KEY_TRAFFIC_DEST_ADDR, KEY_TRAFFIC_SIZE},
-                KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=? ",
+        Cursor cursor = mDB.query(TABLE_TRAFFIC_SUMMARY,
+                new String[]{KEY_TRAFFIC_APP_NAME, KEY_TRAFFIC_DEST_ADDR, KEY_TRAFFIC_SIZE}, KEY_TRAFFIC_ENCRYPTION + "=? AND " + KEY_TRAFFIC_DIRECTION_OUT + "=? ",
                 new String[]{encrypted ? "1" : "0", outgoing ? "1" : "0"}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -432,7 +428,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = mDB.query(TABLE_DATA_LEAKS, new String[]{KEY_PACKAGE, KEY_NAME, KEY_CATEGORY, KEY_TYPE, KEY_CONTENT, KEY_TIME_STAMP, KEY_FOREGROUND_STATUS, KEY_HOSTNAME}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                DataLeak leak = new DataLeak(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getString(7));
+                String packageName = cursor.getString(0);
+                String appName = cursor.getString(1);
+                String category = cursor.getString(2);
+                String type = cursor.getString(3);
+                String content = cursor.getString(4);
+                String timestamp = cursor.getString(5);
+                int foregroundStatus = cursor.getInt(6);
+                String destURL = cursor.getString(7);
+                DataLeak leak = new DataLeak(packageName, appName, category, type, content,timestamp, foregroundStatus, destURL, Classification.classify(packageName, destURL));
                 cursor.close();
                 return leak;
             }
@@ -448,7 +452,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    DataLeak leak = new DataLeak(cursor.getString(0), cursor.getString(1), category, cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getString(6));
+                    String packageNm = cursor.getString(0);
+                    String appName = cursor.getString(1);
+                    String type = cursor.getString(2);
+                    String content = cursor.getString(3);
+                    String timestamp = cursor.getString(4);
+                    int foregroundStatus = cursor.getInt(5);
+                    String destURL = cursor.getString(6);
+                    DataLeak leak = new DataLeak(packageNm, appName, category, type, content, timestamp, foregroundStatus, destURL, Classification.classify(packageNm, destURL));
                     leakList.add(leak);
                 } while (cursor.moveToNext());
             }
@@ -464,7 +475,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    DataLeak leak = new DataLeak(cursor.getString(0), cursor.getString(1), category, cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getString(6));
+                    String packageName = cursor.getString(0);
+                    String appName = cursor.getString(1);
+                    String type = cursor.getString(2);
+                    String content = cursor.getString(3);
+                    String timestamp = cursor.getString(4);
+                    int foregroundStatus = cursor.getInt(5);
+                    String destURL = cursor.getString(6);
+                    DataLeak leak = new DataLeak(packageName, appName, category, type, content, timestamp, foregroundStatus, destURL, Classification.classify(packageName, destURL));
                     leakList.add(leak);
                 } while (cursor.moveToNext());
             }

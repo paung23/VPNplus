@@ -20,7 +20,7 @@
     <!-- DataLeak -->
     <string name="type_label">Type</string>
     <string name="time_label">Time</string>
-    <string name="content_label">Content</string>
+    <string name="classification_label">Classification</string>
     <string name="destination_label">Destination</string>
 
     <string name="leak_singular">leak</string>

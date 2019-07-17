@@ -10,17 +10,19 @@ public class DataLeak {
     private String category;
     private String type;
     private String leakContent;
+    private String leakClassification;
     private String timestamp;
     private Date timestampDate;
     private int foregroundStatus;
     private String destination;
 
-    public DataLeak(String packageName, String appName, String category, String type, String content, String timestamp, int foregroundStatus, String destination){
+    public DataLeak(String packageName, String appName, String category, String type, String content, String timestamp, int foregroundStatus, String destination, String leakClassification){
         this.packageName = packageName;
         this.appName = appName;
         this.category = category;
         this.type = type;
         this.leakContent = content;
+        this.leakClassification = leakClassification;
         this.timestamp = timestamp;
         this.foregroundStatus = foregroundStatus;
         this.destination = destination;
@@ -49,8 +51,14 @@ public class DataLeak {
         return type;
     }
 
+    /**
     public String getLeakContent() {
         return leakContent;
+    }
+     */
+
+    public String getLeakClassification() {
+        return leakClassification;
     }
 
     public String getTimestamp() {

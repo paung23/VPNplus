@@ -43,9 +43,9 @@
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="Content"
+        android:text="Classification"
         android:textAlignment="center"
-        android:id="@+id/detail_content" />
+        android:id="@+id/detail_classification" />
 
     <View
         android:layout_width="1dp"

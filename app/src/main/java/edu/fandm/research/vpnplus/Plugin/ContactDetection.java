@@ -30,8 +30,8 @@ public class ContactDetection implements IPlugin {
     public LeakReport handleRequest(String request) {
         ArrayList<LeakInstance> leaks = new ArrayList<>();
 
-        // don't do regex based search for email/phone since this would assume that a) we can define such regex and
-        // b) app implementators ensure that their phone numbers/email addresses follow these regex
+        //Direct String Searching
+        /**
         for (String phoneNumber: phoneList) {
             if (request.contains(phoneNumber)) {
                 leaks.add(new LeakInstance("Contact Phone Number", phoneNumber));
@@ -42,6 +42,19 @@ public class ContactDetection implements IPlugin {
                 leaks.add(new LeakInstance("Contact Email Address", email));
             }
         }
+         */
+
+        for (String phoneNumber: phoneList) {
+            if (ComparisonAlgorithm.search(request, phoneNumber)) {
+                leaks.add(new LeakInstance("Contact Phone Number", phoneNumber));
+            }
+        }
+        for (String email: emailList) {
+            if (ComparisonAlgorithm.search(request, email)) {
+                leaks.add(new LeakInstance("Contact Email Address", email));
+            }
+        }
+
 
         if(leaks.isEmpty()){
             return null;

@@ -10,6 +10,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -55,6 +56,8 @@ public class LocationDetection implements IPlugin {
 
             String zipCode = getZipCodeFromLocation(loc);
 
+            //Direct String Searching
+            /**
             if ((requestStr.contains(latS) && requestStr.contains(lonS))) {// || (requestStr.contains(latS.replace(".", "")) && requestStr.contains(lonS.replace(".", "")))) {
                 LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
                 rpt.addLeak(new LeakInstance("location", latS + ", " + lonS));
@@ -76,6 +79,35 @@ public class LocationDetection implements IPlugin {
             if (zipCode != null)
             {
                 if (requestStr.contains(zipCode)) {
+                    LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
+                    rpt.addLeak(new LeakInstance("Zip Code", zipCode));
+                    return rpt;
+                }
+            }
+             */
+
+            Log.d(TAG, ">>>>> requestStr is: " + requestStr);
+            if ((ComparisonAlgorithm.search(requestStr, latS)) && (ComparisonAlgorithm.search(requestStr, lonS))) {// || (requestStr.contains(latS.replace(".", "")) && requestStr.contains(lonS.replace(".", "")))) {
+                LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
+                rpt.addLeak(new LeakInstance("location", latS + ", " + lonS));
+                return rpt;
+            }
+
+            if (ComparisonAlgorithm.search(requestStr, routerMacAddress)) {
+                LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
+                rpt.addLeak(new LeakInstance("MacAddress", routerMacAddress));
+                return rpt;
+            }
+
+            if (ComparisonAlgorithm.search(requestStr, routerMacAddressEnc)) {
+                LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
+                rpt.addLeak(new LeakInstance("MacAddressEnc", routerMacAddressEnc));
+                return rpt;
+            }
+
+            if (zipCode != null)
+            {
+                if (ComparisonAlgorithm.search(requestStr, zipCode)) {
                     LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
                     rpt.addLeak(new LeakInstance("Zip Code", zipCode));
                     return rpt;

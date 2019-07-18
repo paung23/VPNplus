@@ -29,11 +29,22 @@ public class DeviceDetection implements IPlugin {
     @Nullable
     public LeakReport handleRequest(String request) {
         ArrayList<LeakInstance> leaks = new ArrayList<>();
+
+        //Direct String Searching
+        /**
         for(String key : nameofValue.keySet()) {
             if (request.contains(key)){
                 leaks.add(new LeakInstance(nameofValue.get(key),key));
             }
         }
+        */
+
+        for(String key : nameofValue.keySet()) {
+            if (ComparisonAlgorithm.search(request, key)){
+                leaks.add(new LeakInstance(nameofValue.get(key),key));
+            }
+        }
+
         if(leaks.isEmpty()){
             return null;
         }

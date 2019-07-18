@@ -27,8 +27,7 @@ public class Logger {
 
     public static File getDiskCacheDir() {
         File cacheDir = null;
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                || !Environment.isExternalStorageRemovable()) {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
             cacheDir = VPNplus.getAppContext().getExternalCacheDir();
         }
         if (cacheDir == null) {
@@ -45,8 +44,7 @@ public class Logger {
 
     public static File getDiskFileDir() {
         File fileDir = null;
-        if (BuildConfig.DEBUG && (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-               || !Environment.isExternalStorageRemovable())) {
+        if (BuildConfig.DEBUG && (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable())) {
             fileDir = VPNplus.getAppContext().getExternalFilesDir(null);
         }
         if (fileDir == null) {
@@ -125,10 +123,20 @@ public class Logger {
 
             try {
                 PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(trafficFile, true)));
+
+                String appName = metaData.appName;
+                String packageName = metaData.packageName;
+                int srcPort = metaData.srcPort;
+                String destHostName = metaData.destHostName;
+                String destIP = metaData.destIP;
+                int destPort = metaData.destPort;
+
+                //NetworkTrafficLogging.writeToFile(appName, packageName, srcPort, destHostName, destIP, destPort, msg);
+
                 out.println("=========================");
                 out.println("Time : " + df.format(new Date()));
-                out.println(" [ " + metaData.appName + " ]  " + metaData.packageName + "  src port: " + metaData.srcPort);
-                out.println(" [ " + metaData.destHostName + " ] " + metaData.destIP + ":" + metaData.destPort);
+                out.println(" [ " + appName + " ]  " + packageName + "  src port: " + srcPort);
+                out.println(" [ " + destHostName + " ] " + destIP + ":" + destPort);
                 out.println("");
                 out.println("Message:");
                 out.println(msg);

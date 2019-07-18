@@ -22,6 +22,7 @@
     <string name="time_label">Time</string>
     <string name="classification_label">Classification</string>
     <string name="destination_label">Destination</string>
+    <string name="content_label">Content</string>
 
     <string name="leak_singular">leak</string>
     <string name="leak_plural">leaks</string>

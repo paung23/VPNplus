@@ -106,8 +106,8 @@ public class LocalServerForwarder extends Thread {
 
         try {
             byte[] buff = new byte[LIMIT];
-            int got;
-            while ((got = in.read(buff)) > -1) {
+            int got = in.read(buff);
+            while (got  > -1) {
                 if (VPNplus.doFilter) {
                     String msg = new String(buff, 0, got);
                     if (VPNplus.asynchronous) {
@@ -120,6 +120,8 @@ public class LocalServerForwarder extends Thread {
                 out.write(buff, 0, got);
                 if (DEBUG) Logger.d(TAG, got + " bytes written to " + metaData.srcIP + ":" + metaData.srcPort + "->" + metaData.destIP + ":" + metaData.destPort);
                 out.flush();
+
+                got = in.read(buff);
             }
             if (DEBUG) Logger.d(TAG, "terminating " + metaData.srcIP + ":" + metaData.srcPort + "->" + metaData.destIP + ":" + metaData.destPort);
         } catch (Exception ignore) {

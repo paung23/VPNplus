@@ -9,10 +9,10 @@
     android:orientation="horizontal">
 
     <TextView
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="Type"
+        android:text="Leak Type"
         android:textAlignment="center"
         android:id="@+id/detail_type" />
 
@@ -25,7 +25,7 @@
 
 
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:text="Time Stamp"
@@ -40,10 +40,10 @@
         android:background="@color/material_blue_grey_800" />
 
     <TextView
-        android:layout_width="128dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="Classification"
+        android:text="URL Type"
         android:textAlignment="center"
         android:id="@+id/detail_classification" />
 

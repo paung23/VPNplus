@@ -436,7 +436,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 String timestamp = cursor.getString(5);
                 int foregroundStatus = cursor.getInt(6);
                 String destURL = cursor.getString(7);
-                DataLeak leak = new DataLeak(packageName, appName, category, type, content,timestamp, foregroundStatus, destURL, Classification.classify(packageName, destURL));
+                String leakClassification = Classification.classify(packageName, destURL);
+
+                DataLeak leak = new DataLeak(packageName, appName, category, type, content,timestamp, foregroundStatus, destURL, leakClassification);
+
+                ///
+                CSVWriter.writeToCSV(type, leakClassification, "Yes");
+
                 cursor.close();
                 return leak;
             }
@@ -459,8 +465,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     String timestamp = cursor.getString(4);
                     int foregroundStatus = cursor.getInt(5);
                     String destURL = cursor.getString(6);
-                    DataLeak leak = new DataLeak(packageNm, appName, category, type, content, timestamp, foregroundStatus, destURL, Classification.classify(packageNm, destURL));
+                    String leakClassification = Classification.classify(packageNm, destURL);
+                    DataLeak leak = new DataLeak(packageNm, appName, category, type, content, timestamp, foregroundStatus, destURL, leakClassification);
                     leakList.add(leak);
+
+                    ///
+                    CSVWriter.writeToCSV(type, leakClassification, "Yes");
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -482,8 +492,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     String timestamp = cursor.getString(4);
                     int foregroundStatus = cursor.getInt(5);
                     String destURL = cursor.getString(6);
-                    DataLeak leak = new DataLeak(packageName, appName, category, type, content, timestamp, foregroundStatus, destURL, Classification.classify(packageName, destURL));
+                    String leakClassification = Classification.classify(packageName, destURL);
+                    DataLeak leak = new DataLeak(packageName, appName, category, type, content, timestamp, foregroundStatus, destURL, leakClassification);
                     leakList.add(leak);
+
+                    ///
+                    CSVWriter.writeToCSV(type, leakClassification, "Yes");
                 } while (cursor.moveToNext());
             }
             cursor.close();

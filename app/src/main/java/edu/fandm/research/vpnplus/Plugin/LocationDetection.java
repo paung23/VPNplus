@@ -86,7 +86,6 @@ public class LocationDetection implements IPlugin {
             }
              */
 
-            Log.d(TAG, ">>>>> requestStr is: " + requestStr);
             if ((ComparisonAlgorithm.search(requestStr, latS)) && (ComparisonAlgorithm.search(requestStr, lonS))) {// || (requestStr.contains(latS.replace(".", "")) && requestStr.contains(lonS.replace(".", "")))) {
                 LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
                 rpt.addLeak(new LeakInstance("location", latS + ", " + lonS));

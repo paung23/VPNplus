@@ -12,7 +12,7 @@ public class LeakReport {
 
     public enum LeakCategory{
         LOCATION,
-        CONTACT,
+        USER,
         DEVICE,
         KEYWORD
     }

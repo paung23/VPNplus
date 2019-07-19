@@ -131,8 +131,6 @@ public class Logger {
                 String destIP = metaData.destIP;
                 int destPort = metaData.destPort;
 
-                //NetworkTrafficLogging.writeToFile(appName, packageName, srcPort, destHostName, destIP, destPort, msg);
-
                 out.println("=========================");
                 out.println("Time : " + df.format(new Date()));
                 out.println(" [ " + appName + " ]  " + packageName + "  src port: " + srcPort);

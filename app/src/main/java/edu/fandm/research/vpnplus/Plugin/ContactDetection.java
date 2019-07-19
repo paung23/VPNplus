@@ -59,7 +59,7 @@ public class ContactDetection implements IPlugin {
         if(leaks.isEmpty()){
             return null;
         }
-        LeakReport rpt = new LeakReport(LeakReport.LeakCategory.CONTACT);
+        LeakReport rpt = new LeakReport(LeakReport.LeakCategory.USER);
         rpt.addLeaks(leaks);
         return rpt;
     }

@@ -442,6 +442,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ///
                 CSVWriter.writeToCSV(type, leakClassification, "Yes");
+                CSVWriter.recordLeak(appName, category, type, leakClassification, destURL);
 
                 cursor.close();
                 return leak;
@@ -471,7 +472,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     ///
                     CSVWriter.writeToCSV(type, leakClassification, "Yes");
-                } while (cursor.moveToNext());
+                    CSVWriter.recordLeak(appName, category, type, leakClassification, destURL);
+                }
+                while (cursor.moveToNext());
             }
             cursor.close();
         }
@@ -498,7 +501,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     ///
                     CSVWriter.writeToCSV(type, leakClassification, "Yes");
-                } while (cursor.moveToNext());
+                    CSVWriter.recordLeak(appName, category, type, leakClassification, destURL);
+                }
+                while (cursor.moveToNext());
             }
             cursor.close();
         }

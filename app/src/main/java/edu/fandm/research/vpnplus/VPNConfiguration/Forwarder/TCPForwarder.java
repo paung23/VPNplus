@@ -39,7 +39,7 @@ import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 /**
  * Created by frank on 2014-03-27.
  */
-public class TCPForwarder extends AbsForwarder { //implements ICommunication {
+public class TCPForwarder extends AbsForwarder {
     private static final String TAG = TCPForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
     private final int WAIT_BEFORE_RELEASE_PERIOD_AFTER_CLOSE = 60000;
@@ -76,9 +76,7 @@ public class TCPForwarder extends AbsForwarder { //implements ICommunication {
         }
         TCPDatagram response = new TCPDatagram(conn_info.getTransHeader(len, TCPHeader.SYNACK), null, conn_info.getDstAddress());
         if (DEBUG) Logger.d(TAG, "LISTEN: Responded with " + response.headerToString());
-        conn_info.increaseSeq(
-                forwardResponse(conn_info.getIPHeader(), response)
-        );
+        conn_info.increaseSeq(forwardResponse(conn_info.getIPHeader(), response));
         status = Status.SYN_ACK_SENT;
         if (DEBUG) Logger.d(TAG, "LISTEN: Switched to SYN_ACK_SENT");
         return true;
@@ -140,7 +138,6 @@ public class TCPForwarder extends AbsForwarder { //implements ICommunication {
     private boolean handle_HALF_CLOSE_BY_CLIENT(byte flag) {
         assert(flag == TCPHeader.ACK);
         if ((flag != TCPHeader.ACK)) {
-//TODO: find out why this would happen
             if (DEBUG) Logger.e(TAG, "ACK is 0");
             return false;
         }
@@ -266,9 +263,6 @@ public class TCPForwarder extends AbsForwarder { //implements ICommunication {
         );
     }
 
-    /*
-    * Methods for ICommunication
-    */
     public void send(IPPayLoad payLoad) {
         if(isClosed()) {
             status = Status.HALF_CLOSE_BY_SERVER;

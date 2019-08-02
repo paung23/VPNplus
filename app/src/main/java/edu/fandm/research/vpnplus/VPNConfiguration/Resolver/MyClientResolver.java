@@ -96,9 +96,6 @@ public class MyClientResolver implements IClientResolver {
         }
       }
 
-      // this means that no connection with that port could be found in the tcp6 file
-      // try the tcp one
-
       tcp = new File(NetworkInfo.TCP_4_FILE_PATH);
       reader = new BufferedReader(new FileReader(tcp));
       builder = new StringBuilder();

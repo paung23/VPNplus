@@ -76,13 +76,11 @@ public class MyNetworkHostNameResolver {
       while(running) {
         if (unresolvedSiteData.size() > 0){
           final SiteData siteDataCurrent = unresolvedSiteData.remove(0);
-          TrustManager[] trustAllCerts = new TrustManager[] {
-            new X509TrustManager() {
+          TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
               public X509Certificate[] getAcceptedIssuers() {
                 return null;
               }
-              public void checkClientTrusted(X509Certificate[] certs, String authType) {
-              }
+              public void checkClientTrusted(X509Certificate[] certs, String authType) { }
               public void checkServerTrusted(X509Certificate[] certs, String authType) {
                 try{
                   if (certs != null && certs.length > 0 && certs[0].getSubjectDN() != null){

@@ -13,9 +13,6 @@ import java.util.HashSet;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.StringUtil;
 
-/**
- * Created by frank on 23/07/14.
- */
 public class ContactDetection implements IPlugin {
     private final String TAG = "ContactDetection";
     private final boolean DEBUG = false;
@@ -29,20 +26,6 @@ public class ContactDetection implements IPlugin {
     @Nullable
     public LeakReport handleRequest(String request) {
         ArrayList<LeakInstance> leaks = new ArrayList<>();
-
-        //Direct String Searching
-        /**
-        for (String phoneNumber: phoneList) {
-            if (request.contains(phoneNumber)) {
-                leaks.add(new LeakInstance("Contact Phone Number", phoneNumber));
-            }
-        }
-        for (String email: emailList) {
-            if (request.contains(email)) {
-                leaks.add(new LeakInstance("Contact Email Address", email));
-            }
-        }
-         */
 
         for (String phoneNumber: phoneList) {
             if (ComparisonAlgorithm.search(request, phoneNumber)) {

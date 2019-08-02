@@ -5,9 +5,6 @@ import java.util.List;
 
 import edu.fandm.research.vpnplus.VPNConfiguration.ConnectionMetaData;
 
-/**
- * Created by justinhu on 16-03-09.
- */
 public class LeakReport {
 
     public enum LeakCategory{

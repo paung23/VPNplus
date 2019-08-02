@@ -13,7 +13,7 @@ public class IPv6Header extends IPHeader {
     dstIndex = 24;
     addressSize = 16;
 
-    headerLength = 40; //TODO
+    headerLength = 40;
     length = ((data[lengthIndex] & 0xFF) << 8) + (data[lengthIndex + 1] & 0xFF);
     protocol = data[6];
 

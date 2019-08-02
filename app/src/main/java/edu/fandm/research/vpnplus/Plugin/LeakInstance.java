@@ -1,6 +1,6 @@
 package edu.fandm.research.vpnplus.Plugin;
 
-public class LeakInstance{
+public class LeakInstance {
 
     public String type;
     public String content;

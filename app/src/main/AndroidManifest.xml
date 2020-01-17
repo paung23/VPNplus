@@ -17,13 +17,14 @@
         android:required="true" />
 
     <application
-        android:name="edu.fandm.research.vpnplus.Application.VPNplus"
+        android:name=".Application.VPNplus"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -32,9 +33,9 @@
         <activity
             android:name=".Application.AppInterface.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,6 +43,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Application.AppInterface.NaiveBayesSpeedEval">
+        </activity>
         <activity
             android:name=".Application.AppInterface.AppSummaryActivity"
             android:launchMode="singleTop"
@@ -51,18 +54,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Application.AppInterface.MainActivity" />
         </activity>
-
         <activity
             android:name=".Application.AppInterface.DetailActivity"
             android:parentActivityName=".Application.AppInterface.AppSummaryActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Application.AppInterface.MyPreferencesActivity"
             android:parentActivityName=".Application.AppInterface.MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
-        <receiver android:name=".Application.ActionReceiver"/>
+        <receiver android:name=".Application.ActionReceiver" />
 
         <service
             android:name=".VPNConfiguration.VPNservice.MyVpnService"
@@ -72,14 +73,13 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".Application.Database.RecordAppStatusEvents" >
+        <receiver android:name=".Application.Database.RecordAppStatusEvents">
             <intent-filter>
                 <action android:name="android.intent.action.DATE_CHANGED" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
                 <action android:name="android.intent.action.QUICKBOOT_POWEROFF" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

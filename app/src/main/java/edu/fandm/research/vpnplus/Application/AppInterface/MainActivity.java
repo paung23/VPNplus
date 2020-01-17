@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
@@ -159,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(this, MyPreferencesActivity.class);
                 startActivity(i);
                 return true;
+
+            case R.id.clear:
+                DatabaseHandler db = DatabaseHandler.getInstance(this);
+                db.deleteAll();
+                populateLeakList();
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -251,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MainActivity.this, AppSummaryActivity.class);
 
+                    Log.d(TAG, "Clicked item at pos: " + position + "   with id: " + id);
                     AppSummary app = (AppSummary)parent.getItemAtPosition(position);
 
                     intent.putExtra(VPNplus.EXTRA_PACKAGE_NAME, app.getPackageName());
@@ -335,6 +343,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startVPN() {
+        Log.d(TAG, "Trying to startVPN()");
         if (!bounded) {
             Intent service = new Intent(this, MyVpnService.class);
             this.bindService(service, mSc, Context.BIND_AUTO_CREATE);

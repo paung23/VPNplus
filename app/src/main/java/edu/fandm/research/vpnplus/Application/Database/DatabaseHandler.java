@@ -189,6 +189,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
+
+    public void deleteAll(){
+        List<AppSummary> appSummaries = this.getAllApps();
+        for(AppSummary as : appSummaries) {
+            this.deletePackage(as.getPackageName());
+        }
+    }
+
     public void addtraffic(TrafficReport traffic){
         int encryption;
         if (traffic.metaData.encrypted){

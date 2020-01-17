@@ -40,7 +40,7 @@ public class DeviceDetection implements IPlugin {
         */
 
         for(String key : nameofValue.keySet()) {
-            if (ComparisonAlgorithm.search(request, key)){
+            if (ComparisonAlgorithm.search(request, key, "key")){
                 leaks.add(new LeakInstance(nameofValue.get(key),key));
             }
         }

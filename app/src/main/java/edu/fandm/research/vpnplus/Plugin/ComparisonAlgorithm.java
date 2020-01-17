@@ -1,5 +1,7 @@
 package edu.fandm.research.vpnplus.Plugin;
 
+import android.util.Log;
+
 public class ComparisonAlgorithm
 {
     private static int NO_OF_CHARS = 256;
@@ -22,8 +24,10 @@ public class ComparisonAlgorithm
 
     /* A pattern searching function that uses Bad
        Character Heuristic of Boyer Moore Algorithm */
-    public static Boolean search(String text, String pattern)
+    public static Boolean search(String text, String pattern, String category)
     {
+
+        Log.d("enovak.vpnplus.compare", "Searching For '" + category + "'  with value: " + pattern );
         char[] txt = text.toCharArray();
         char[] pat = pattern.toCharArray();
 
@@ -118,6 +122,7 @@ public class ComparisonAlgorithm
         return (packetData.length() - editDist) / (double) packetData.length();
     }
 
+
     private static int getMin(int x,int y,int z)
     {
         if(x <= y && x <= z)
@@ -134,6 +139,8 @@ public class ComparisonAlgorithm
         }
     }
 
+
+    // Levenshstein Distance?
     private static int editDistance(String input1, String input2)
     {
         int input1Length = input1.length();

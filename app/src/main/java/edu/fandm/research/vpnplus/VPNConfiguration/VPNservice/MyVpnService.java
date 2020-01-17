@@ -30,6 +30,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -72,7 +73,7 @@ public class MyVpnService extends VpnService implements Runnable {
     public static final String KeyType = "PKCS12";
     public static final String Password = "";
 
-    private static final String TAG = "MyVpnService";
+    private static final String TAG = MyVpnService.class.getSimpleName();
     private static final boolean DEBUG = true;
     private static boolean running = false;
     private static boolean started = false;
@@ -125,6 +126,7 @@ public class MyVpnService extends VpnService implements Runnable {
 
     @Override
     public IBinder onBind(Intent intent) {
+        Log.d(TAG, "MyVPNService is being binded!");
         return new MyVpnServiceBinder();
     }
 
@@ -146,6 +148,7 @@ public class MyVpnService extends VpnService implements Runnable {
 
     @Override
     public void run() {
+        Log.d(TAG, "MyVPNService thread has started");
         if (!(setup_network())) {
             return;
         }
@@ -189,6 +192,7 @@ public class MyVpnService extends VpnService implements Runnable {
     }
 
     private void setup_workers() {
+        Log.d(TAG, "setup_workers() called");
         hostNameResolver = new MyNetworkHostNameResolver(this);
         clientAppResolver = new MyClientResolver(this);
 
@@ -379,6 +383,7 @@ public class MyVpnService extends VpnService implements Runnable {
     }
 
     public void startVPN(Context context) {
+        Log.d(TAG, "MyVPNService was started via startVPN()");
         Intent intent = new Intent(context, MyVpnService.class);
         context.startService(intent);
         started = true;

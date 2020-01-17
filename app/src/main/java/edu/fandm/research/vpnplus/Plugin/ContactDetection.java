@@ -45,12 +45,12 @@ public class ContactDetection implements IPlugin {
          */
 
         for (String phoneNumber: phoneList) {
-            if (ComparisonAlgorithm.search(request, phoneNumber)) {
+            if (ComparisonAlgorithm.search(request, phoneNumber, "phone-num")) {
                 leaks.add(new LeakInstance("Contact Phone Number", phoneNumber));
             }
         }
         for (String email: emailList) {
-            if (ComparisonAlgorithm.search(request, email)) {
+            if (ComparisonAlgorithm.search(request, email, "email")) {
                 leaks.add(new LeakInstance("Contact Email Address", email));
             }
         }

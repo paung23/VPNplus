@@ -44,7 +44,7 @@ public class KeywordDetection implements IPlugin {
          */
 
         for (String keyword : keywords) {
-            if (ComparisonAlgorithm.search(request, keyword)) {
+            if (ComparisonAlgorithm.search(request, keyword, "keyword")) {
                 leaks.add(new LeakInstance("Keyword", keyword));
             }
         }

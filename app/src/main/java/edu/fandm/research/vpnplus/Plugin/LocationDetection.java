@@ -49,10 +49,9 @@ public class LocationDetection implements IPlugin {
             //    return rpt;
             //}
 
-            int latI = (int) (loc.getLatitude() * 10);
-            int lonI = (int) (loc.getLongitude() * 10);
-            String latS = String.valueOf(latI);
-            String lonS = String.valueOf(lonI);
+
+            String latS = String.valueOf(loc.getLatitude());
+            String lonS = String.valueOf(loc.getLongitude());
 
             String zipCode = getZipCodeFromLocation(loc);
 
@@ -86,19 +85,19 @@ public class LocationDetection implements IPlugin {
             }
              */
 
-            if ((ComparisonAlgorithm.search(requestStr, latS)) && (ComparisonAlgorithm.search(requestStr, lonS))) {// || (requestStr.contains(latS.replace(".", "")) && requestStr.contains(lonS.replace(".", "")))) {
+            if ((ComparisonAlgorithm.search(requestStr, latS, "latitude")) || (ComparisonAlgorithm.search(requestStr, lonS, "longitude"))) {// || (requestStr.contains(latS.replace(".", "")) && requestStr.contains(lonS.replace(".", "")))) {
                 LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
                 rpt.addLeak(new LeakInstance("location", latS + ", " + lonS));
                 return rpt;
             }
 
-            if (ComparisonAlgorithm.search(requestStr, routerMacAddress)) {
+            if (ComparisonAlgorithm.search(requestStr, routerMacAddress, "mac")) {
                 LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
                 rpt.addLeak(new LeakInstance("MacAddress", routerMacAddress));
                 return rpt;
             }
 
-            if (ComparisonAlgorithm.search(requestStr, routerMacAddressEnc)) {
+            if (ComparisonAlgorithm.search(requestStr, routerMacAddressEnc, "mac")) {
                 LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
                 rpt.addLeak(new LeakInstance("MacAddressEnc", routerMacAddressEnc));
                 return rpt;
@@ -106,7 +105,7 @@ public class LocationDetection implements IPlugin {
 
             if (zipCode != null)
             {
-                if (ComparisonAlgorithm.search(requestStr, zipCode)) {
+                if (ComparisonAlgorithm.search(requestStr, zipCode, "zipcode")) {
                     LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
                     rpt.addLeak(new LeakInstance("Zip Code", zipCode));
                     return rpt;

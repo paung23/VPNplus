@@ -41,7 +41,6 @@ import edu.fandm.research.vpnplus.Application.Helpers.ActivityRequestCodes;
 import edu.fandm.research.vpnplus.Application.Helpers.PreferenceHelper;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Application.VPNplus;
-import edu.fandm.research.vpnplus.Plugin.NaiveBayes;
 import edu.fandm.research.vpnplus.R;
 import edu.fandm.research.vpnplus.Utilities.CertificateManager;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.NaiveBayesSpeedEval:
-                Intent i2 = new Intent(this, NaiveBayesSpeedEval.class);
+                Intent i2 = new Intent(this, NaiveBayesEval.class);
                 startActivity(i2);
                 return true;
 

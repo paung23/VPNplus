@@ -3,9 +3,9 @@ package edu.fandm.research.vpnplus.Plugin;
 public class Instance {
     // The class Instance is used to represent an instance in the data set
     
-    String actual;
-    String predicted;
-    String[] attributes;
+    public String actual;
+    public String predicted;
+    public String[] attributes;
 
     /**
      * Create a new Instance given attribute list and known category/class

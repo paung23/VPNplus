@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Application.AppInterface.NaiveBayesSpeedEval">
+        <activity android:name=".Application.AppInterface.NaiveBayesEval">
         </activity>
         <activity
             android:name=".Application.AppInterface.AppSummaryActivity"

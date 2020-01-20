@@ -1,6 +1,7 @@
 package edu.fandm.research.vpnplus.Plugin;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
@@ -16,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,28 +24,19 @@ import java.util.Map;
 
 
 public class NaiveBayes {
-    private static int observations; // total number of observations
-    private static int numAttributes; // number of attributes
-    private static ArrayList<Set<String>> numAttributeValues; // number of possible values for each attribute
-    private static HashMap<String, Integer> attributeCount; // counts of each attribute
-    private static HashMap<String, Integer> classCount; // counts of each class
-    private static HashMap<String, Double> priorProb; // prior probability for each class
-    private static HashMap<String, HashMap<String, Integer>> jointCount; // counts of attribute-class pair
-    private static HashMap<String, HashMap<String, Double>> evidenceLikelihood; // likelihood of evidence / conditional probs
+    private int observations = 0; // total number of observations
+    private int numAttributes = 0; // number of attributes
+    private ArrayList<Set<String>> numAttributeValues = new ArrayList<>();; // number of possible values for each attribute
+    private HashMap<String, Integer> attributeCount = new HashMap<>(); // counts of each attribute
+    private HashMap<String, Integer> classCount = new HashMap<>(); // counts of each class
+    private HashMap<String, Double> priorProb = new HashMap<>(); // prior probability for each class
+    private HashMap<String, HashMap<String, Integer>> jointCount = new HashMap<>(); // counts of attribute-class pair
+    private HashMap<String, HashMap<String, Double>> evidenceLikelihood = new HashMap<>(); // likelihood of evidence / conditional probs
 
     /**
      * Create a new NaiveBayes classifier
      */
-    public NaiveBayes(){
-        observations = 0;
-        numAttributes = 0;
-        numAttributeValues = new ArrayList<>();
-        attributeCount = new HashMap<>();
-        classCount = new HashMap<>();
-        priorProb = new HashMap<>();
-        jointCount = new HashMap<>();
-        evidenceLikelihood = new HashMap<>();
-    }
+    public NaiveBayes(){ } // This is a purely static class, there is no instances of NaiveBayes
 
     /**
      * Reads CSV file, stores every line in an ArrayList
@@ -57,12 +48,16 @@ public class NaiveBayes {
         return data;
     }
 
+
+
     /**
      * Splits data set into a training-testing pair where trainingRatio represents ratio of data reserved for training
      * @param data
      * @param trainingRatio
      * @return
      */
+
+    /* DEAD CODE
     public static ArrayList<Data> trainTestSplit(Data data, double trainingRatio){
         ArrayList<Data> out = new ArrayList<>();
         Data copy = data.deepCopy();
@@ -76,6 +71,10 @@ public class NaiveBayes {
         out.add(copy);
         return out;
     }
+    */
+
+    
+
     /**
      * Splits data into k folds, each of these k folds becomes the testing set while remaining (k-1) folds are reserved for training
      * @param data
@@ -115,9 +114,9 @@ public class NaiveBayes {
      * Build the classifier. Keep counts of occurrences of each class, each attribute, each class-attribute pair
      * @param data
      */
-    public static void buildClassifier(Data data){
+    public void buildClassifier(Data data){
         observations = data.size();
-        numAttributes = data.numAttributes;
+        numAttributes = data.getNumAttributes();
         for (Instance instance: data.instances) {
             String category = instance.actual;
             classCount.put(category, classCount.getOrDefault(category, 0) + 1);
@@ -144,11 +143,12 @@ public class NaiveBayes {
             }
         }
     }
+
     /**
      * Train the classifier. Calculate class prior probability (e.g. P(Obfuscate)),
      * likelihood of evidence (e.g. P(Location | Obfuscate))
      */
-    public static void train(){
+    public void train(){
         // calculate class probabilities
         for (Map.Entry<String, Integer> entry: classCount.entrySet()){
             String category = entry.getKey();
@@ -183,7 +183,7 @@ public class NaiveBayes {
      * @param newInstance
      * @return Class with the highest posterior probability
      */
-    public static String predict(Instance newInstance){
+    public String predict(Instance newInstance){
         Double maxProb = Double.NEGATIVE_INFINITY;
         String result = null;
         for (String category: classCount.keySet()) {
@@ -208,24 +208,24 @@ public class NaiveBayes {
      * @param testing
      * @return #true guesses / #instances
      */
-    public static double calculateAccuracy(Data testing){
+    public double calculateAccuracy(Data testing) {
         int count = 0;
-        for (Instance instance: testing.instances){
-	    //System.out.println("Instance: " + instance.toString());
+        for (Instance instance : testing.instances) {
+            //System.out.println("Instance: " + instance.toString());
             String predicted = predict(instance);
-	    //System.out.println("Actual: " + instance.actual + " Predicted: " +predicted); 
-            if (instance.actual.equals(predicted)){
+            //Log.d("vpnplus.nb", "Actual: " + instance.actual + " Predicted: " +predicted);
+            if (instance.actual.equals(predicted)) {
                 count++;
             }
         }
 
-        return 100*(double)count/testing.size();
+        return 100 * (double) count / testing.size();
     }
 
-    public static double[] doOneEval(int numDataPoints) {
+    public static double[] doOneSpeedEval(int numDataPoints, Context ctx) {
         Data data = new Data();
         for(int i = 0; i < numDataPoints; i++) {
-            data.add(data.randomInstance());
+            data.add(data.randomInstance(ctx));
         }
 
         // We'll just do a ''train'' and a ''predict'' and see how long it takes
@@ -240,17 +240,19 @@ public class NaiveBayes {
         nb.train();
         long endT = System.nanoTime();
 
-        Instance randInst = data.randomInstance();
+        Instance randInst = data.randomInstance(ctx);
         long startP = System.nanoTime();
         String result = nb.predict(randInst);
         long endP = System.nanoTime();
         long end = System.nanoTime();
 
+        /*
         Log.d("vpnplus.naivebayes", "Predicted: " + result + "  for instance: " + randInst);
         Log.d("vpnplus.naivebayes", "Time to complete with " + data.size() + " datapoints: " + (end - start) + "ns");
         Log.d("vpnplus.naivebayes", "build classifier: " + (endBC - startBC) + "ns");
         Log.d("vpnplus.naivebayes", "train classifier: " + (endT - startT) + "ns");
         Log.d("vpnplus.naivebayes", "predict: " + (endP - startP) + "ns");
+         */
 
 
         double[] results = new double[]{(end - start), (endBC - startBC), (endT - startT), (endP - startP)};

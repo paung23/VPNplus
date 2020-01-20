@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Application.AppInterface.NaiveBayesEval">
+
+    <TextView android:id="@+id/nbe_tv"
+        android:layout_width="match_parent"
+        android:layout_height="400dip"
+        android:scrollbars = "vertical"
+        app:layout_constraintBottom_toTopOf="@+id/nbe_go_speed_butt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/nbe_go_speed_butt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eval Speed"
+        android:onClick="GOspeed"
+        app:layout_constraintTop_toBottomOf="@+id/nbe_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/nbe_go_accuracy_butt"
+        app:layout_constraintRight_toRightOf="parent">
+
+    </Button>
+
+    <Button
+        android:id="@+id/nbe_go_accuracy_butt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eval Accuracy"
+        android:onClick="GOaccuracy"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/nbe_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/nbe_go_speed_butt"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

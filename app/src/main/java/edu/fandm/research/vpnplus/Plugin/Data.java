@@ -1,9 +1,17 @@
 package edu.fandm.research.vpnplus.Plugin;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,8 +20,9 @@ import java.util.Random;
 public class Data {
     //The class Data is used to represent a collection of instances as a List.
 
-    List<Instance> instances; // list of instances
-    int numAttributes; // number of attributes
+    public List<Instance> instances; // list of instances
+    private static String[] appNames = null;
+    private int numAttributes; // number of attributes
 
     /**
      * Create a new Data object given CSV file
@@ -58,26 +67,48 @@ public class Data {
         return instances.size();
     }
 
+
+    private static String[] getAllApps(Context ctx){
+        if(Data.appNames == null){
+            HashSet<String> names = new HashSet<String>();
+            PackageManager pm = ctx.getPackageManager();
+            List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+            for (ApplicationInfo packageInfo : packages) {
+                String applicationName = (String) (packageInfo != null ? pm.getApplicationLabel(packageInfo) : packageInfo.packageName);
+                names.add(applicationName);
+            }
+
+
+            String[] ans = new String[names.size()];
+            ans = names.toArray(ans);
+            Data.appNames = ans;
+        }
+        return Data.appNames;
+    }
+
+
     /**
      * Add a new instance in Data object
      * @param instance
      */
-    void add(Instance instance){
+    public void add(Instance instance){
         instances.add(instance);
     }
 
-    public Instance randomInstance(){
-        String[] possibleFeature1 = new String[] {"Advertising ID", "Phone Number", "IMEI", "email", "city", "name", "GPS Coord.", "ZIP", "password", "mac"};
-        String[] possibleFeature2 = new String[] {"1st Party", "3rd Party", "Ad Network"};
-        String[] possibleFeature3 = new String[] {"Yes", "No"};
+    public static Instance randomInstance(Context ctx){
+        String[] possibleFeature1 = Data.getAllApps(ctx);
+        String[] possibleFeature2 = new String[] {"Advertising ID", "Phone Number", "IMEI", "email", "city", "name", "GPS Coord.", "ZIP", "password", "mac"};
+        String[] possibleFeature3 = new String[] {"1st Party", "3rd Party", "Ad Network"};
+        String[] possibleFeature4 = new String[] {"Yes", "No"};
 
         Random r = new Random();
         int f1IDX = r.nextInt(possibleFeature1.length);
         int f2IDX = r.nextInt(possibleFeature2.length);
-        int f3IDX = r.nextInt(2);
+        int f3IDX = r.nextInt(possibleFeature3.length);
+        int f4IDX = r.nextInt(2);
 
-
-        Instance i = new Instance(new String[]{possibleFeature1[f1IDX], possibleFeature2[f2IDX]}, possibleFeature3[f3IDX]);
+        Instance i = new Instance(new String[]{possibleFeature1[f1IDX], possibleFeature2[f2IDX], possibleFeature3[f3IDX]}, possibleFeature4[f4IDX]);
         return i;
     }
 
@@ -112,5 +143,9 @@ public class Data {
      */
     public String toString(){
         return instances.toString();
+    }
+
+    public int getNumAttributes(){
+        return numAttributes;
     }
 }

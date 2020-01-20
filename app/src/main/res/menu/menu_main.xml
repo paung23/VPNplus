@@ -16,7 +16,7 @@
 
     <item android:id="@+id/NaiveBayesSpeedEval"
         android:orderInCategory="102"
-        android:title="Naive Bayes Speed Eval."
+        android:title="Naive Bayes Eval."
         app:showAsAction="ifRoom" />
 
 </menu>

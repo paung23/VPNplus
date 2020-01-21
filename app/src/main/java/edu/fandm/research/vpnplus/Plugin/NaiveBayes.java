@@ -117,7 +117,7 @@ public class NaiveBayes {
     public void buildClassifier(Data data){
         observations = data.size();
         numAttributes = data.getNumAttributes();
-        for (Instance instance: data.instances) {
+        for (NBLeakInstance instance: data.instances) {
             String category = instance.actual;
             classCount.put(category, classCount.getOrDefault(category, 0) + 1);
             String[] attributes = instance.attributes;
@@ -183,7 +183,7 @@ public class NaiveBayes {
      * @param newInstance
      * @return Class with the highest posterior probability
      */
-    public String predict(Instance newInstance){
+    public String predict(NBLeakInstance newInstance){
         Double maxProb = Double.NEGATIVE_INFINITY;
         String result = null;
         for (String category: classCount.keySet()) {
@@ -210,7 +210,7 @@ public class NaiveBayes {
      */
     public double calculateAccuracy(Data testing) {
         int count = 0;
-        for (Instance instance : testing.instances) {
+        for (NBLeakInstance instance : testing.instances) {
             //System.out.println("Instance: " + instance.toString());
             String predicted = predict(instance);
             //Log.d("vpnplus.nb", "Actual: " + instance.actual + " Predicted: " +predicted);
@@ -240,7 +240,7 @@ public class NaiveBayes {
         nb.train();
         long endT = System.nanoTime();
 
-        Instance randInst = data.randomInstance(ctx);
+        NBLeakInstance randInst = data.randomInstance(ctx);
         long startP = System.nanoTime();
         String result = nb.predict(randInst);
         long endP = System.nanoTime();

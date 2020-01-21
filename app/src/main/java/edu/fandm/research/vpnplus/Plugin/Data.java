@@ -20,7 +20,7 @@ import java.util.Random;
 public class Data {
     //The class Data is used to represent a collection of instances as a List.
 
-    public List<Instance> instances; // list of instances
+    public List<NBLeakInstance> instances; // list of instances
     private static String[] appNames = null;
     private int numAttributes; // number of attributes
 
@@ -41,7 +41,7 @@ public class Data {
                 numAttributes = rowList.length-1;
                 String category = rowList[numAttributes];
                 String[] attributes = Arrays.copyOfRange(rowList,0,numAttributes);
-                Instance i = new Instance(attributes, category);
+                NBLeakInstance i = new NBLeakInstance(attributes, category);
                 instances.add(i);
             }
 	    br.close();
@@ -92,11 +92,11 @@ public class Data {
      * Add a new instance in Data object
      * @param instance
      */
-    public void add(Instance instance){
+    public void add(NBLeakInstance instance){
         instances.add(instance);
     }
 
-    public static Instance randomInstance(Context ctx){
+    public static NBLeakInstance randomInstance(Context ctx){
         String[] possibleFeature1 = Data.getAllApps(ctx);
         String[] possibleFeature2 = new String[] {"Advertising ID", "Phone Number", "IMEI", "email", "city", "name", "GPS Coord.", "ZIP", "password", "mac"};
         String[] possibleFeature3 = new String[] {"1st Party", "3rd Party", "Ad Network"};
@@ -108,7 +108,7 @@ public class Data {
         int f3IDX = r.nextInt(possibleFeature3.length);
         int f4IDX = r.nextInt(2);
 
-        Instance i = new Instance(new String[]{possibleFeature1[f1IDX], possibleFeature2[f2IDX], possibleFeature3[f3IDX]}, possibleFeature4[f4IDX]);
+        NBLeakInstance i = new NBLeakInstance(new String[]{possibleFeature1[f1IDX], possibleFeature2[f2IDX], possibleFeature3[f3IDX]}, possibleFeature4[f4IDX]);
         return i;
     }
 
@@ -117,7 +117,7 @@ public class Data {
      * @param data
      */
     void addAll(Data data){
-        for (Instance i: data.instances){
+        for (NBLeakInstance i: data.instances){
             add(i);
         }
     }
@@ -126,14 +126,14 @@ public class Data {
      * Remove and return an Instance at given index
      * @param index
      */
-    Instance remove(int index){
-        Instance instance = instances.remove(index);
+    NBLeakInstance remove(int index){
+        NBLeakInstance instance = instances.remove(index);
         return instance;
     }
 
     public Data deepCopy(){
 	Data copy = new Data();
-	for (Instance i: instances){
+	for (NBLeakInstance i: instances){
 	    copy.instances.add(i);
 	}
 	return copy;

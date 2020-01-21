@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import edu.fandm.research.vpnplus.Plugin.Data;
-import edu.fandm.research.vpnplus.Plugin.Instance;
+import edu.fandm.research.vpnplus.Plugin.NBLeakInstance;
 import edu.fandm.research.vpnplus.Plugin.NaiveBayes;
 import edu.fandm.research.vpnplus.R;
 
@@ -49,13 +49,13 @@ public class NaiveBayesEval extends AppCompatActivity {
     }
 
 
-    private void writeFile(double[][] measurements, String namePrefix){
-
+    private void writeFile(String data, String name){
         // Check for storage permissions
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if(permissionCheck == PackageManager.PERMISSION_DENIED) {
             // Request the permission be turned on
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            Toast.makeText(getApplicationContext(), "Failed to save file, please try again", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -72,21 +72,15 @@ public class NaiveBayesEval extends AppCompatActivity {
         // a new folder
         File dir = new File(Environment.getExternalStorageDirectory(), "nb_eval");
         boolean res = dir.mkdirs();
-        File f = new File(dir,  namePrefix + timestamp + ".csv");
+        File f = new File(dir,  timestamp + "_" + name);
 
 
-
-        String result = "Could not save measurement data!";
+        String result = "Could not save file!";
         try {
             FileOutputStream fos = new FileOutputStream(f);
-
-            for(int i = 0; i < measurements.length; i++){
-                double[] row = measurements[i];
-                String s = join(",", row) + "\n";
-                fos.write(s.getBytes());
-            }
+            fos.write(data.getBytes());
             fos.close();
-            result = "Measurement data saved at: " + f.getAbsolutePath();
+            result = "File saved at: " + f.getAbsolutePath();
         } catch (
                 FileNotFoundException e1){
             Log.d(TAG, "File not found");
@@ -100,6 +94,26 @@ public class NaiveBayesEval extends AppCompatActivity {
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();
     }
 
+    private void writeDataFile(double[][] measurements, String name){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < measurements.length; i++) {
+            double[] row = measurements[i];
+            sb.append(join(",", row) + "\n");
+        }
+
+        writeFile(sb.toString(), name);
+    }
+
+    private void writeLogFile(String[][] groundTruthLog, String name){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < groundTruthLog.length; i++) {
+            String[] row = groundTruthLog[i];
+            sb.append(join(",", row) + "\n");
+        }
+
+        writeFile(sb.toString(), name);
+    }
+
     private static String join(String delim, double[] tokens){
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < tokens.length; i++){
@@ -109,11 +123,21 @@ public class NaiveBayesEval extends AppCompatActivity {
         return sb.toString();
     }
 
+    private static String join(String delim, String[] tokens){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < tokens.length; i++){
+            sb.append(String.valueOf(tokens[i]) + ",");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
+    }
 
-    private void GOaccuracyHelper(final NaiveBayes nb, final Data d, final int count, final int maxCount, final double[][] measurements){
+
+    private void GOaccuracyHelper(final NaiveBayes nb, final Data d, final int count, final int maxCount, final double[][] measurements, final String[][] log){
 
         if(count >= maxCount){
-            writeFile(measurements, "accuracy_data_");
+            writeDataFile(measurements, "accuracy_data.csv");
+            writeLogFile(log, "accuracy_log.csv");
             return;
         }
 
@@ -122,7 +146,7 @@ public class NaiveBayesEval extends AppCompatActivity {
         nb.buildClassifier(d);
         nb.train();
 
-        final Instance newPoint = d.randomInstance(getApplicationContext());
+        final NBLeakInstance newPoint = d.randomInstance(getApplicationContext());
         final String predictedResult = nb.predict(newPoint);
 
 
@@ -133,7 +157,7 @@ public class NaiveBayesEval extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // Yes! option
                 String result = "Yes";
-                flushDialog(nb, newPoint, result, predictedResult, d, measurements, count, maxCount, dialog);
+                flushDialog(nb, newPoint, result, predictedResult, d, measurements, log, count, maxCount, dialog);
             }
         });
 
@@ -143,7 +167,7 @@ public class NaiveBayesEval extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // No! option
                 String result = "No";
-                flushDialog(nb, newPoint, result, predictedResult, d, measurements, count, maxCount, dialog);
+                flushDialog(nb, newPoint, result, predictedResult, d, measurements, log, count, maxCount, dialog);
             }
         });
 
@@ -151,7 +175,7 @@ public class NaiveBayesEval extends AppCompatActivity {
         alert.show();
     }
 
-    private void flushDialog(NaiveBayes nb, Instance newPoint, String result, String predictedResult, Data d, double[][] measurements, int count, int maxCount, DialogInterface dialog){
+    private void flushDialog(NaiveBayes nb, NBLeakInstance newPoint, String result, String predictedResult, Data d, double[][] measurements, String[][] log, int count, int maxCount, DialogInterface dialog){
         newPoint.actual = result;
         newPoint.predicted = predictedResult;
         d.instances.add(newPoint);
@@ -161,10 +185,11 @@ public class NaiveBayesEval extends AppCompatActivity {
         tv.append("User response: " + result + "   Prediction: "+ predictedResult + "\n");
         tv.append("Accuracy: " + acc + "\n\n");
         measurements[count] = new double[]{acc};
+        log[count] = new String[]{newPoint.attributes[0], newPoint.attributes[1], newPoint.attributes[2], newPoint.actual, newPoint.predicted};
 
         dialog.dismiss();
 
-        GOaccuracyHelper(nb, d, count+1, maxCount, measurements);
+        GOaccuracyHelper(nb, d, count+1, maxCount, measurements, log);
     }
 
     public void GOaccuracy(View v){
@@ -175,11 +200,12 @@ public class NaiveBayesEval extends AppCompatActivity {
         final Data d = new Data();
         d.add(d.randomInstance(getApplicationContext()));
 
-        int maxCount = 50;
+        int maxCount = 5;
 
         double[][] measurements = new double[maxCount][1];
+        String[][] groundTruthLog = new String[maxCount][5];
 
-        GOaccuracyHelper(nb, d, 0, maxCount, measurements);
+        GOaccuracyHelper(nb, d, 0, maxCount, measurements, groundTruthLog);
 
     }
 
@@ -211,7 +237,7 @@ public class NaiveBayesEval extends AppCompatActivity {
         }
 
 
-        writeFile(measurements, "speed_data_");
+        writeDataFile(measurements, "speed_data.csv");
     }
 
 }

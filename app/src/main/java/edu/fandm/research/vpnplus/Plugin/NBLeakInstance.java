@@ -1,6 +1,6 @@
 package edu.fandm.research.vpnplus.Plugin;
 
-public class Instance {
+public class NBLeakInstance {
     // The class Instance is used to represent an instance in the data set
     
     public String actual;
@@ -12,7 +12,7 @@ public class Instance {
      * @param att
      * @param cat
      */
-    public Instance(String[] att, String cat){
+    public NBLeakInstance(String[] att, String cat){
         actual = cat;
         attributes = att;
     }
@@ -21,7 +21,7 @@ public class Instance {
      * Create a new Instance given attribute list (category unknown)
      * @param att
      */
-    public Instance(String[] att){
+    public NBLeakInstance(String[] att){
         attributes = att;
     }
 

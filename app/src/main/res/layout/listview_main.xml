@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="leaks"
+            android:text="no. of leaks"
             android:id="@+id/main_appLeak" />
     </LinearLayout>
 </LinearLayout>

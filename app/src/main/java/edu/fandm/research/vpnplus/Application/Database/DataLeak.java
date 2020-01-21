@@ -51,11 +51,9 @@ public class DataLeak {
         return type;
     }
 
-    /**
     public String getLeakContent() {
         return leakContent;
     }
-     */
 
     public String getLeakClassification() {
         return leakClassification;

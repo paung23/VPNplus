@@ -13,9 +13,6 @@ import java.util.Set;
 
 import edu.fandm.research.vpnplus.Application.Logger;
 
-/**
- * @author Eric Woojung Kim [w3kim@uwaterloo.ca]
- */
 public class KeywordDetection implements IPlugin {
 
     public static final String KEYWORDS_FILE_NAME = "keywords.txt";
@@ -33,15 +30,6 @@ public class KeywordDetection implements IPlugin {
     @Override
     public LeakReport handleRequest(String request) {
         ArrayList<LeakInstance> leaks = new ArrayList<>();
-
-        //Direct String Searching
-        /**
-        for (String keyword : keywords) {
-            if (request.contains(keyword)) {
-                leaks.add(new LeakInstance("Keyword", keyword));
-            }
-        }
-         */
 
         for (String keyword : keywords) {
             if (ComparisonAlgorithm.search(request, keyword, "keyword")) {

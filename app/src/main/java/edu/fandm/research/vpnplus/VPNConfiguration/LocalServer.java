@@ -87,7 +87,6 @@ public class LocalServer extends Thread {
                 Socket target = new Socket();
                 target.bind(null);
                 vpnService.protect(target);
-                // TODO: why do this and the call above return different results?
                 descriptor = vpnService.getClientAppResolver().getClientDescriptorByPort(client.getPort());
                 target.connect(new InetSocketAddress(descriptor.getRemoteAddress(), descriptor.getRemotePort()));
 

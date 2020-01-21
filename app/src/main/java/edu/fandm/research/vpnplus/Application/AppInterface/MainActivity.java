@@ -157,8 +157,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.settings:
-                Intent i = new Intent(this, MyPreferencesActivity.class);
-                startActivity(i);
+                Intent i1 = new Intent(this, MyPreferencesActivity.class);
+                startActivity(i1);
+                return true;
+
+            case R.id.about:
+                Intent i2 = new Intent(this, AboutActivity.class);
+                startActivity(i2);
                 return true;
 
             case R.id.clear:
@@ -168,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.NaiveBayesSpeedEval:
-                Intent i2 = new Intent(this, NaiveBayesEval.class);
-                startActivity(i2);
+                Intent i3 = new Intent(this, NaiveBayesEval.class);
+                startActivity(i3);
                 return true;
 
         }

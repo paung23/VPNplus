@@ -24,6 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Application.AppInterface.AboutActivity"></activity>
 
 
         <meta-data
@@ -45,6 +46,7 @@
 
         <activity android:name=".Application.AppInterface.NaiveBayesEval">
         </activity>
+
         <activity
             android:name=".Application.AppInterface.AppSummaryActivity"
             android:launchMode="singleTop"

@@ -28,7 +28,7 @@
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:text="Time Stamp"
+        android:text="Time"
         android:textAlignment="center"
         android:id="@+id/detail_time" />
 

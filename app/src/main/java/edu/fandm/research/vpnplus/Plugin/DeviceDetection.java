@@ -16,9 +16,6 @@ import java.util.HashMap;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.HashHelpers;
 
-/**
- * Created by frank on 23/07/14.
- */
 public class DeviceDetection implements IPlugin {
     private static HashMap<String, String> nameofValue = new HashMap<String, String>();
     private static boolean init = false;
@@ -29,15 +26,6 @@ public class DeviceDetection implements IPlugin {
     @Nullable
     public LeakReport handleRequest(String request) {
         ArrayList<LeakInstance> leaks = new ArrayList<>();
-
-        //Direct String Searching
-        /**
-        for(String key : nameofValue.keySet()) {
-            if (request.contains(key)){
-                leaks.add(new LeakInstance(nameofValue.get(key),key));
-            }
-        }
-        */
 
         for(String key : nameofValue.keySet()) {
             if (ComparisonAlgorithm.search(request, key, "key")){

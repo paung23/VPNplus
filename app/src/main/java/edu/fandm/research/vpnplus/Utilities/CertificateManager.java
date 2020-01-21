@@ -62,11 +62,8 @@ public class CertificateManager {
                 String alias = (String) aliases.nextElement();
                 rootCACert = (X509Certificate) ks.getCertificate(alias);
 
-                // there can be multiple certificates with matching name since
-                // we can't programmatically remove, e.g. when PrivacyGuard is uninstalled
-                if (rootCACert.getIssuerDN().getName().contains(caName) &&
-                        rootCACert.equals(fileCACert)) {
-                    //Logger.d(TAG, rootCACert.toString());
+                if (rootCACert.getIssuerDN().getName().contains(caName) && rootCACert.equals(fileCACert)) {
+                    Logger.d(TAG, rootCACert.toString());
                     found = true;
                     break;
                 }

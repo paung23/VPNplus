@@ -201,6 +201,7 @@ public class NaiveBayes {
             }
         }
         newInstance.predicted = result;
+	newInstance.maxProb = maxProb;
         return result;
     }
     /**

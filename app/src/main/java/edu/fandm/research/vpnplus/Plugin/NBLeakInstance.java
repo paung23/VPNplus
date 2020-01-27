@@ -6,6 +6,7 @@ public class NBLeakInstance {
     public String actual;
     public String predicted;
     public String[] attributes;
+	public double maxProb; // represents prob of the chosen prediction
 
     /**
      * Create a new Instance given attribute list and known category/class

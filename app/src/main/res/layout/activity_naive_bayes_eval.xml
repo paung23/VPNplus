@@ -19,7 +19,7 @@
         android:id="@+id/nbe_go_speed_butt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Eval Speed"
+        android:text="NB Speed"
         android:onClick="GOspeed"
         app:layout_constraintTop_toBottomOf="@+id/nbe_tv"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,13 +32,28 @@
         android:id="@+id/nbe_go_accuracy_butt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Eval Accuracy"
+        android:text="NB Acc."
         android:onClick="GOaccuracy"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/nbe_tv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/nbe_go_speed_butt"
+        app:layout_constraintLeft_toRightOf="@id/nbe_go_search_string_speed_butt">
+    </Button>
+
+    <Button
+        android:id="@+id/nbe_go_search_string_speed_butt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SS Speed"
+        android:onClick="GOstringSearchSpeed"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/nbe_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/nbe_go_accuracy_butt"
         app:layout_constraintLeft_toLeftOf="parent">
     </Button>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

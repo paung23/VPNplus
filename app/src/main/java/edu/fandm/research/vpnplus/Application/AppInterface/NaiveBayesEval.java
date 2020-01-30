@@ -23,7 +23,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Random;
 
+import edu.fandm.research.vpnplus.Plugin.ComparisonAlgorithm;
 import edu.fandm.research.vpnplus.Plugin.Data;
 import edu.fandm.research.vpnplus.Plugin.NBLeakInstance;
 import edu.fandm.research.vpnplus.Plugin.NaiveBayes;
@@ -200,7 +202,7 @@ public class NaiveBayesEval extends AppCompatActivity {
         final Data d = new Data();
         d.add(d.randomInstance(getApplicationContext()));
 
-        int maxCount = 5;
+        int maxCount = 50;
 
         double[][] measurements = new double[maxCount][1];
         String[][] groundTruthLog = new String[maxCount][5];
@@ -238,6 +240,47 @@ public class NaiveBayesEval extends AppCompatActivity {
 
 
         writeDataFile(measurements, "speed_data.csv");
+    }
+
+    public void GOstringSearchSpeed(View v){
+        clearTV();
+
+        String phoneNumber = "847-555-8133";
+
+        int numMeasurements = 250;
+        double[][] measurements = new double[numMeasurements][1];
+
+        for(int n = 0; n < numMeasurements; n++){
+
+            int numBytes = 500 + (10485 * n);
+            String text = makeRandomString(numBytes)+ "847-555-8133";
+            //Log.d(TAG, "text: " + text);
+            long start = System.currentTimeMillis();
+            boolean result = ComparisonAlgorithm.search(text, phoneNumber, "phone-num");
+            long end = System.currentTimeMillis();
+
+
+            double[] data = new double[]{(end - start), result ? 1 : 0, numBytes};
+            String tmp = "Time: "+ data[0] + "   result: " + data[1] + "  numBytes: " + data[2];
+            Log.d(TAG, "" + n + " / " + numMeasurements + "  " + tmp);
+            tv.append(tmp + "\n");
+            measurements[n] = data;
+        }
+
+        writeDataFile(measurements, "string_search_speed_data.csv");
+    }
+
+    private String makeRandomString(int numBytes){
+        StringBuilder sb = new StringBuilder();
+
+        Random r = new Random();
+
+        while(sb.length() * 8 < numBytes){
+            int ascii = r.nextInt(26) + 97;
+            //Log.d(TAG, "ascii number:" + ascii);
+            sb.append((char)ascii);
+        }
+        return sb.toString();
     }
 
 }

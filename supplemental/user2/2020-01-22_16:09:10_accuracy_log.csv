@@ -1,0 +1,50 @@
+CaptivePortalLogin,Phone Number,1st Party,Yes,No
+Android Setup,ZIP,Ad Network,No,No
+Basic Daydreams,password,1st Party,No,No
+Bluetooth,name,3rd Party,No,No
+com.android.providers.partnerbookmarks,password,Ad Network,No,No
+MusicFX,IMEI,3rd Party,No,No
+Slides,city,1st Party,Yes,No
+Google Play services,name,1st Party,Yes,No
+Sheets,name,Ad Network,No,No
+Google Play Games,password,Ad Network,No,No
+Google Now Launcher,password,3rd Party,No,No
+Shell,password,1st Party,No,No
+YouTube,ZIP,Ad Network,No,No
+ConfigUpdater,name,1st Party,Yes,No
+Sheets,GPS Coord.,Ad Network,No,No
+Package Access Helper,GPS Coord.,1st Party,No,No
+Drive,name,3rd Party,No,No
+Default Print Service,ZIP,1st Party,Yes,No
+Intent Filter Verification Service,Phone Number,3rd Party,No,No
+Google Text-to-speech Engine,city,1st Party,Yes,No
+Android Setup,GPS Coord.,1st Party,No,No
+Camera,city,1st Party,Yes,No
+Shell,GPS Coord.,3rd Party,No,No
+Google Backup Transport,ZIP,Ad Network,No,No
+Carrier Provisioning Service,name,Ad Network,No,No
+Google Indic Keyboard,IMEI,Ad Network,No,No
+RCSService,Advertising ID,1st Party,Yes,No
+YouTube,Advertising ID,Ad Network,Yes,No
+Call Management,IMEI,Ad Network,No,No
+Android System WebView,name,Ad Network,No,No
+RCSService,password,3rd Party,No,No
+Google Now Launcher,Advertising ID,3rd Party,Yes,No
+Default Print Service,password,Ad Network,No,No
+Contacts,city,Ad Network,No,No
+org.codeaurora.ims,name,1st Party,Yes,No
+Docs,ZIP,3rd Party,No,No
+Dark,mac,3rd Party,Yes,No
+Google Play Music,password,1st Party,No,No
+Carrier Setup,email,3rd Party,No,No
+Google Services Framework,name,1st Party,Yes,No
+Google Play Movies & TV,Phone Number,3rd Party,No,No
+Keep Notes,city,Ad Network,No,No
+CarrierDefaultApp,ZIP,1st Party,Yes,No
+Print Service Recommendation Service,Phone Number,1st Party,No,No
+CarrierDefaultApp,ZIP,3rd Party,No,No
+Package installer,name,Ad Network,No,No
+com.qualcomm.timeservice,Advertising ID,3rd Party,Yes,No
+Bluetooth MIDI Service,mac,Ad Network,Yes,No
+Google Pay,GPS Coord.,3rd Party,No,No
+Phone,city,Ad Network,No,No

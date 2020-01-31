@@ -1,0 +1,1 @@
+Unfortunately the base.apk for WeChat is too large for github.

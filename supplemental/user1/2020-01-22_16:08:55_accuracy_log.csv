@@ -1,0 +1,50 @@
+Android Shared Library,mac,1st Party,Yes,No
+Call Management,IMEI,3rd Party,No,No
+PacProcessor,ZIP,Ad Network,No,No
+Settings Storage,mac,Ad Network,No,No
+Phone Services,email,1st Party,Yes,No
+Device Health Services,password,1st Party,No,No
+Nfc Service,email,Ad Network,No,No
+Leaks,email,3rd Party,No,No
+RCSService,IMEI,3rd Party,Yes,No
+Device configuration,email,1st Party,Yes,No
+Nfc Service,Phone Number,3rd Party,No,No
+com.android.carrierconfig,GPS Coord.,Ad Network,No,No
+Phone and Messaging Storage,Advertising ID,Ad Network,No,No
+Google Backup Transport,city,1st Party,Yes,No
+Phone and Messaging Storage,password,3rd Party,No,No
+Google Play Music,ZIP,3rd Party,No,No
+Google,mac,Ad Network,No,No
+com.android.connectivity.metrics.App,name,Ad Network,No,No
+Intent Filter Verification Service,email,1st Party,Yes,No
+Google Contacts Sync,IMEI,1st Party,Yes,No
+Shell,ZIP,Ad Network,No,No
+YouTube,city,Ad Network,No,No
+Device Policy,Advertising ID,Ad Network,No,No
+Gboard,mac,3rd Party,Yes,No
+ConfigUpdater,email,1st Party,Yes,No
+Android Easter Egg,Phone Number,Ad Network,No,No
+VPN+,password,3rd Party,No,No
+Google Contacts Sync,IMEI,3rd Party,Yes,No
+MusicFX,password,3rd Party,No,No
+Files,mac,1st Party,Yes,No
+Google Backup Transport,ZIP,3rd Party,No,No
+CaptivePortalLogin,Phone Number,3rd Party,No,No
+Nfc Service,city,1st Party,Yes,No
+Calendar Storage,name,1st Party,Yes,No
+CaptivePortalLogin,Advertising ID,1st Party,Yes,No
+com.android.carrierconfig,ZIP,3rd Party,No,No
+com.android.carrierconfig,password,Ad Network,No,No
+User Dictionary,name,3rd Party,No,No
+Google Indic Keyboard,IMEI,3rd Party,Yes,No
+Default Print Service,Advertising ID,1st Party,Yes,No
+Intent Filter Verification Service,IMEI,3rd Party,No,No
+Leaks,Advertising ID,Ad Network,No,No
+com.android.cts.priv.ctsshim,GPS Coord.,Ad Network,No,No
+External Storage,ZIP,3rd Party,No,No
+com.android.sdm.plugins.diagmon,GPS Coord.,Ad Network,No,No
+Smart Storage,GPS Coord.,3rd Party,No,No
+Print Spooler,Advertising ID,1st Party,Yes,No
+Photos,password,3rd Party,No,No
+Messages,IMEI,3rd Party,No,No
+com.android.cts.priv.ctsshim,GPS Coord.,Ad Network,No,No

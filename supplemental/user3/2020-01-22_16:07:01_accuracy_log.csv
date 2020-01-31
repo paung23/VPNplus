@@ -1,0 +1,50 @@
+Docs,IMEI,Ad Network,No,No
+Blocked Numbers Storage,name,3rd Party,Yes,No
+Carrier Provisioning Service,Advertising ID,1st Party,Yes,No
+Drive,name,1st Party,Yes,No
+Google Play Store,mac,Ad Network,No,No
+com.android.wallpapercropper,ZIP,1st Party,Yes,No
+Fused Location,mac,Ad Network,No,No
+ConfigUpdater,password,1st Party,No,No
+ProxyHandler,email,Ad Network,No,No
+Download Manager,city,1st Party,No,No
+ConnMO,mac,Ad Network,No,No
+Live Wallpaper Picker,ZIP,Ad Network,No,No
+Google Contacts Sync,ZIP,1st Party,Yes,No
+com.android.sdm.plugins.dcmo,name,Ad Network,Yes,No
+com.qualcomm.qti.rcsimsbootstraputil,email,3rd Party,No,No
+Google Text-to-speech Engine,mac,1st Party,No,No
+com.android.backupconfirm,IMEI,Ad Network,No,No
+Google,IMEI,Ad Network,No,No
+Nexus 5X Home Screen,email,Ad Network,No,No
+Default Print Service,name,3rd Party,Yes,No
+MmsService,IMEI,Ad Network,No,No
+SIM Toolkit,Advertising ID,Ad Network,Yes,No
+Google Time Zone Data,ZIP,1st Party,Yes,No
+MmsService,password,1st Party,No,No
+Drive,name,Ad Network,No,No
+Key Chain,name,3rd Party,No,No
+Google Pinyin Input,email,Ad Network,No,No
+SprintDM,name,Ad Network,No,No
+Cloud Print,GPS Coord.,3rd Party,No,No
+Google Services Framework,mac,Ad Network,No,No
+Google Play Movies & TV,ZIP,Ad Network,Yes,No
+Carrier Setup,password,Ad Network,No,No
+Call Log Backup/Restore,IMEI,1st Party,No,No
+com.qualcomm.qcrilmsgtunnel,GPS Coord.,1st Party,No,No
+Google Services Framework,city,3rd Party,Yes,No
+Cell Broadcasts,name,3rd Party,No,No
+Dark,mac,Ad Network,No,No
+com.android.sharedstoragebackup,GPS Coord.,1st Party,No,No
+com.android.connectivity.metrics.App,GPS Coord.,3rd Party,No,No
+Calculator,name,Ad Network,No,No
+HTML Viewer,Phone Number,Ad Network,No,No
+Cell Broadcasts,IMEI,3rd Party,No,No
+Google Pay,mac,3rd Party,No,No
+CarrierDefaultApp,ZIP,Ad Network,No,No
+Intent Filter Verification Service,ZIP,3rd Party,No,No
+Bluetooth,Phone Number,1st Party,No,No
+T Google enrollment,name,3rd Party,No,No
+Intent Filter Verification Service,city,1st Party,Yes,No
+ProxyHandler,mac,1st Party,Yes,No
+Android Shared Library,IMEI,1st Party,No,No

@@ -126,7 +126,6 @@ public class MyVpnService extends VpnService implements Runnable {
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG, "MyVPNService is being binded!");
         return new MyVpnServiceBinder();
     }
 
@@ -148,7 +147,6 @@ public class MyVpnService extends VpnService implements Runnable {
 
     @Override
     public void run() {
-        Log.d(TAG, "MyVPNService thread has started");
         if (!(setup_network())) {
             return;
         }
@@ -192,7 +190,6 @@ public class MyVpnService extends VpnService implements Runnable {
     }
 
     private void setup_workers() {
-        Log.d(TAG, "setup_workers() called");
         hostNameResolver = new MyNetworkHostNameResolver(this);
         clientAppResolver = new MyClientResolver(this);
 
@@ -383,7 +380,6 @@ public class MyVpnService extends VpnService implements Runnable {
     }
 
     public void startVPN(Context context) {
-        Log.d(TAG, "MyVPNService was started via startVPN()");
         Intent intent = new Intent(context, MyVpnService.class);
         context.startService(intent);
         started = true;

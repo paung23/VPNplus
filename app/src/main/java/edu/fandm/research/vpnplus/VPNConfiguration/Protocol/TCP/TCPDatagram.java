@@ -6,6 +6,9 @@ import java.util.Arrays;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPPayLoad;
 
+/**
+ * Created by frank on 2014-03-26.
+ */
 public class TCPDatagram extends IPPayLoad {
     private static final String TAG = "TCPDatagram";
     private static final boolean DEBUG = false;
@@ -41,7 +44,10 @@ public class TCPDatagram extends IPPayLoad {
         if ((flag & TCPHeader.ACK) != 0) flags.append("ACK|");
         if ((flag & TCPHeader.PSH) != 0) flags.append("PSH|");
         if ((flag & TCPHeader.RST) != 0) flags.append("RST|");
-        Logger.d(TAG, "Flags=" + flags.toString() + " SrcPort=" + header.getSrcPort() + " DstPort=" + header.getDstPort() + " Seq=" + Long.toString(((TCPHeader) header).getSeq_num() & 0xFFFFFFFFL) + " Ack=" + Long.toString(((TCPHeader) header).getAck_num() & 0xFFFFFFFFL) + " Data Length=" + dataLength());
+        Logger.d(TAG, "Flags=" + flags.toString() +
+                " SrcPort=" + header.getSrcPort() + " DstPort=" + header.getDstPort() + " Seq=" + Long.toString(((TCPHeader) header).getSeq_num() & 0xFFFFFFFFL) +
+                " Ack=" + Long.toString(((TCPHeader) header).getAck_num() & 0xFFFFFFFFL) +
+                " Data Length=" + dataLength());
     }
 
     public String headerToString()

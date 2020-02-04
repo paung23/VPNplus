@@ -7,6 +7,9 @@ import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPPayLoad;
 
+/**
+ * Created by frank on 2014-03-28.
+ */
 public class UDPDatagram extends IPPayLoad {
     private final String TAG = "UDPDatagram";
     public static UDPDatagram create(byte[] data) {
@@ -23,7 +26,11 @@ public class UDPDatagram extends IPPayLoad {
     }
 
     public void debugInfo(InetAddress dstAddress) {
-        Logger.d(TAG, "DstAddr=" + dstAddress.getHostName() + " SrcPort=" + header.getSrcPort() + " DstPort=" + header.getDstPort() + " Total Length=" + ((UDPHeader)header).getTotal_length() + " Data Length=" + this.dataLength() + " Data=" + ByteOperations.byteArrayToString(this.data));
+        Logger.d(TAG, "DstAddr=" + dstAddress.getHostName() +
+                " SrcPort=" + header.getSrcPort() + " DstPort=" + header.getDstPort() +
+                " Total Length=" + ((UDPHeader)header).getTotal_length() +
+                " Data Length=" + this.dataLength() +
+                " Data=" + ByteOperations.byteArrayToString(this.data));
     }
 
     public String debugString() {

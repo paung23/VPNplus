@@ -8,6 +8,10 @@ import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.TCP.TCPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.UDP.UDPDatagram;
 
+/**
+ * Created by frank on 2014-03-26.
+ */
+
 public class IPDatagram {
     public final static String TAG = "IPDatagram";
     public static final int TCP = 6, UDP = 17;

@@ -34,7 +34,7 @@ import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 /**
  * Created by frank on 2014-03-29.
  */
-public class UDPForwarder extends AbsForwarder {
+public class UDPForwarder extends AbsForwarder { //} implements ICommunication {
     private static final String TAG = UDPForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
     private final int LIMIT = 32767;

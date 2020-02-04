@@ -13,6 +13,12 @@ import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPHeader;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.UDP.UDPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.UDP.UDPHeader;
 
+/**
+ * Created by uhengart on 09/06/16.
+ *
+ * Thread that reads UDP response packets from socket, adds header, and puts them into queue emptied by TunWriteThreat
+ * There is one such thread per UDP request source port
+ */
 public class UDPForwarderWorker extends Thread {
     private static final String TAG = UDPForwarderWorker.class.getSimpleName();
     private static final boolean DEBUG = false;

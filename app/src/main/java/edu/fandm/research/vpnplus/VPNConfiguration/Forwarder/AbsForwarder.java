@@ -25,6 +25,10 @@ import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPHeader;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPPayLoad;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
+/**
+ * Created by frank on 2014-03-29.
+ */
+
 public abstract class AbsForwarder {
     private static final String TAG = AbsForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -43,7 +47,7 @@ public abstract class AbsForwarder {
     //}
 
     //public void close() {
-        //closed = true;
+    //closed = true;
     //}
 
     public abstract void release();

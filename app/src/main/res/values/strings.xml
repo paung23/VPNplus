@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">VPN+</string>
-    <string name="version">1.0</string>
+    <string name="version">version 3.0</string>
 
     <string name="about_app">About the app</string>
     <string name="about_message">This app is created as a tool for a research conducted by the Computer Science department at Franklin &amp; Marshall College.</string>
@@ -25,8 +25,8 @@
     <!-- DataLeak -->
     <string name="type_label">Type</string>
     <string name="time_label">Time</string>
-    <string name="classification_label">Classification</string>
-    <string name="destination_label">Destination</string>
+    <string name="classification_label">URL Classification</string>
+    <string name="destination_label">Destination Domain</string>
     <string name="content_label">Content</string>
 
     <string name="leak_singular">leak</string>

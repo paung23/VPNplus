@@ -6,6 +6,9 @@ import java.util.Arrays;
 
 import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 
+/**
+ * Created by y59song on 28/05/14.
+ */
 public class IPv6Header extends IPHeader {
   public IPv6Header(byte[] data) {
     lengthIndex = 4;
@@ -13,7 +16,7 @@ public class IPv6Header extends IPHeader {
     dstIndex = 24;
     addressSize = 16;
 
-    headerLength = 40;
+    headerLength = 40; //TODO
     length = ((data[lengthIndex] & 0xFF) << 8) + (data[lengthIndex + 1] & 0xFF);
     protocol = data[6];
 
@@ -31,12 +34,12 @@ public class IPv6Header extends IPHeader {
   @Override
   public byte[] getPseudoHeader(int dataLength) {
     return ByteOperations.concatenate(
-      getSrcAddressByteArray(),
-      getDstAddressByteArray(),
-      new byte[]{
-        0, 0, (byte)((dataLength & 0xFF00) >> 8), (byte)(dataLength & 0xFF),
-        0, 0, 0, protocol()
-      }
+            getSrcAddressByteArray(),
+            getDstAddressByteArray(),
+            new byte[]{
+                    0, 0, (byte)((dataLength & 0xFF00) >> 8), (byte)(dataLength & 0xFF),
+                    0, 0, 0, protocol()
+            }
     );
   }
 }

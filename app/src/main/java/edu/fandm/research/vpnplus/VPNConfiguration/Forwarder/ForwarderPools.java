@@ -30,6 +30,9 @@ import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
+/**
+ * Created by frank on 2014-04-01.
+ */
 public class ForwarderPools {
     private HashMap<Pair<Integer, Byte>, AbsForwarder> portToForwarder;
     private MyVpnService vpnService;

@@ -6,6 +6,9 @@ import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.TransportHeader;
 
 
+/**
+ * Created by frank on 2014-03-28.
+ */
 public class UDPHeader extends TransportHeader {
   private int total_length = 0;
   public UDPHeader(byte[] data) {

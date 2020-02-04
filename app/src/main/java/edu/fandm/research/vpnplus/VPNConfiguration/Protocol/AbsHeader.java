@@ -1,5 +1,8 @@
 package edu.fandm.research.vpnplus.VPNConfiguration.Protocol;
 
+/**
+ * Created by frank on 2014-03-27.
+ */
 public abstract class AbsHeader {
   protected byte[] data;
   protected int checkSum_pos, checkSum_size;

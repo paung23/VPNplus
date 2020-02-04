@@ -5,6 +5,9 @@ import java.net.InetAddress;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPHeader;
 
+/**
+ * Created by y59song on 16/05/14.
+ */
 public class ConnectionInfo {
   protected InetAddress clientAddress, serverAddress;
   protected int clientPort, serverPort;
@@ -37,7 +40,7 @@ public class ConnectionInfo {
     this.responseTransHeader = ipDatagram.payLoad().header().reverse();
   }
 
- // public void setup(AbsForwarder forwarder) {
+  // public void setup(AbsForwarder forwarder) {
   //  forwarder.setup(clientAddress, clientPort, serverAddress, serverPort);
- // }
+  // }
 }

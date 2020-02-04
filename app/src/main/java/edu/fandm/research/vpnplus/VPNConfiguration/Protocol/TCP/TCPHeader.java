@@ -7,6 +7,9 @@ import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.TransportHeader;
 
 
+/**
+ * Created by frank on 2014-03-26.
+ */
 public class TCPHeader extends TransportHeader {
   public static final byte FIN = 0x01;
   public static final byte ACK = 0x10;

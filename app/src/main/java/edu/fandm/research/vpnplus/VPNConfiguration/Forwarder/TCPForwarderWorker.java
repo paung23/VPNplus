@@ -11,10 +11,15 @@ import java.io.OutputStream;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Application.VPNplus;
 
+/**
+ * Created by y59song on 03/04/14.
+ *
+ * Acts as an intermediate between TCPForwarder and LocalServer
+ */
 public class TCPForwarderWorker extends Thread {
     private static final String TAG = TCPForwarderWorker.class.getSimpleName();
     private static final boolean DEBUG = false;
-    private final int limit = 32767;
+    private final int limit = 1368;
     //private SocketChannel socketChannel;
     //private Selector selector;
     private Socket socket;
@@ -31,7 +36,7 @@ public class TCPForwarderWorker extends Thread {
     }
 
     public boolean isValid() {
-    //    return selector != null;
+        //    return selector != null;
         return true;
     }
 
@@ -60,7 +65,7 @@ public class TCPForwarderWorker extends Thread {
             // socket got closed by TCPForwarder
             //e.printStackTrace();
         }
-                //            }
+        //            }
         //while (!isInterrupted() && selector.isOpen()) {
         //   try {
         //      selector.select(0);   // blocks till there is some data to read
@@ -97,21 +102,21 @@ public class TCPForwarderWorker extends Thread {
     }
 
     public void close() {
-       // try {
-            //if (selector != null) selector.close();
+        // try {
+        //if (selector != null) selector.close();
         //} catch (IOException e) {
-          //  e.printStackTrace();
+        //  e.printStackTrace();
         //}
         if (sender != null && sender.isAlive()) {
             sender.interrupt();
         }
         try {
-           // if (socketChannel.isConnected()) {
-           //     socketChannel.socket().close();
-           //     socketChannel.close();
+            // if (socketChannel.isConnected()) {
+            //     socketChannel.socket().close();
+            //     socketChannel.close();
             socket.close();
             Logger.d(TAG, "closed socket for port " + src_port);
-           // }
+            // }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,19 +130,19 @@ public class TCPForwarderWorker extends Thread {
                 OutputStream stream = socket.getOutputStream();
                 //while (!isInterrupted() && !socketChannel.socket().isClosed()) {
                 while (!isInterrupted() && !socket.isClosed()) {
-                        temp = requests.take();
-                        //ByteBuffer tempBuf = ByteBuffer.wrap(temp);
-                        //while (true) {
-                            //int written = socketChannel.write(tempBuf);
-                            stream.write(temp);
-                            stream.flush();
-                            Logger.d(TAG, temp.length + " bytes forwarded to LocalServer from port: " + src_port);
-                            VPNplus.tcpForwarderWorkerWrite += temp.length;
-                            //if (tempBuf.hasRemaining()) {
-                            //    Thread.sleep(10);
-                            //} else break;
-                        //}
-                    }
+                    temp = requests.take();
+                    //ByteBuffer tempBuf = ByteBuffer.wrap(temp);
+                    //while (true) {
+                    //int written = socketChannel.write(tempBuf);
+                    stream.write(temp);
+                    stream.flush();
+                    Logger.d(TAG, temp.length + " bytes forwarded to LocalServer from port: " + src_port);
+                    VPNplus.tcpForwarderWorkerWrite += temp.length;
+                    //if (tempBuf.hasRemaining()) {
+                    //    Thread.sleep(10);
+                    //} else break;
+                    //}
+                }
             } catch (InterruptedException e) {
                 // happens when connection gets terminated by TCPForwarder
                 //e.printStackTrace();

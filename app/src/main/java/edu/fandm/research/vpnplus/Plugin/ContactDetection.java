@@ -13,6 +13,9 @@ import java.util.HashSet;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.StringUtil;
 
+/**
+ * Created by frank on 23/07/14.
+ */
 public class ContactDetection implements IPlugin {
     private final String TAG = "ContactDetection";
     private final boolean DEBUG = false;
@@ -27,17 +30,18 @@ public class ContactDetection implements IPlugin {
     public LeakReport handleRequest(String request) {
         ArrayList<LeakInstance> leaks = new ArrayList<>();
 
+        // don't do regex based search for email/phone since this would assume that a) we can define such regex and
+        // b) app implementators ensure that their phone numbers/email addresses follow these regex
         for (String phoneNumber: phoneList) {
-            if (ComparisonAlgorithm.search(request, phoneNumber, "phone-num")) {
+            if (request.contains(phoneNumber) || ComparisonAlgorithm.search(request, phoneNumber, "phone-num")) {
                 leaks.add(new LeakInstance("Contact Phone Number", phoneNumber));
             }
         }
         for (String email: emailList) {
-            if (ComparisonAlgorithm.search(request, email, "email")) {
+            if (request.contains(email) || ComparisonAlgorithm.search(request, email, "email")) {
                 leaks.add(new LeakInstance("Contact Email Address", email));
             }
         }
-
 
         if(leaks.isEmpty()){
             return null;

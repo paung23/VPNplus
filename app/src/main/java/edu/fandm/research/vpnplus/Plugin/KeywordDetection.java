@@ -13,6 +13,9 @@ import java.util.Set;
 
 import edu.fandm.research.vpnplus.Application.Logger;
 
+/**
+ * @author Eric Woojung Kim [w3kim@uwaterloo.ca]
+ */
 public class KeywordDetection implements IPlugin {
 
     public static final String KEYWORDS_FILE_NAME = "keywords.txt";
@@ -32,8 +35,8 @@ public class KeywordDetection implements IPlugin {
         ArrayList<LeakInstance> leaks = new ArrayList<>();
 
         for (String keyword : keywords) {
-            if (ComparisonAlgorithm.search(request, keyword, "keyword")) {
-                leaks.add(new LeakInstance("Keyword", keyword));
+            if (request.contains(keyword) || ComparisonAlgorithm.search(request, keyword, "keyword")) {
+                leaks.add(new LeakInstance("Imported Keyword", keyword));
             }
         }
 

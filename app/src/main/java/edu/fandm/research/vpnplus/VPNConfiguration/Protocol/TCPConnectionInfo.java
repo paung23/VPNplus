@@ -4,6 +4,9 @@ import edu.fandm.research.vpnplus.VPNConfiguration.Forwarder.TCPForwarder;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP.IPDatagram;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.TCP.TCPHeader;
 
+/**
+ * Created by y59song on 16/05/14.
+ */
 public class TCPConnectionInfo extends ConnectionInfo {
     private static final String TAG = "TCPConnectionInfo";
     public int seq, ack;
@@ -52,6 +55,6 @@ public class TCPConnectionInfo extends ConnectionInfo {
     }
 
     public void setup(TCPForwarder forwarder) {
-          forwarder.setup(clientAddress, clientPort, serverAddress, serverPort);
-        }
+        forwarder.setup(clientAddress, clientPort, serverAddress, serverPort);
     }
+}

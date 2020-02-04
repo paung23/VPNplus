@@ -6,6 +6,9 @@ import java.util.Arrays;
 import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.AbsHeader;
 
+/**
+ * Created by frank on 2014-03-26.
+ */
 public abstract class IPHeader extends AbsHeader {
     protected int headerLength, length;
     protected InetAddress srcAddress, dstAddress;

@@ -23,6 +23,9 @@ import java.util.Map;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
+/**
+ * Created by y59song on 05/06/14.
+ */
 public class MyNetworkHostNameResolver {
   private MyVpnService vpnService;
   private Context mContext;
@@ -33,7 +36,7 @@ public class MyNetworkHostNameResolver {
   private List<SiteData> unresolvedSiteData;
   private HostNameResolver hostNameResolver;
 
-  public static String DEFAULT_SITE_NAME = "privacyguard.untrusted";
+  public static String DEFAULT_SITE_NAME = "vpnplus.untrusted";
   private static String TAG = MyNetworkHostNameResolver.class.getSimpleName();
   private static boolean LOGD = false;
 
@@ -76,34 +79,36 @@ public class MyNetworkHostNameResolver {
       while(running) {
         if (unresolvedSiteData.size() > 0){
           final SiteData siteDataCurrent = unresolvedSiteData.remove(0);
-          TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-              public X509Certificate[] getAcceptedIssuers() {
-                return null;
-              }
-              public void checkClientTrusted(X509Certificate[] certs, String authType) { }
-              public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                try{
-                  if (certs != null && certs.length > 0 && certs[0].getSubjectDN() != null){
-                    // getting subject common name
-                    String cnValue = certs[0].getSubjectDN().getName();
-                    String[] cnValues = cnValue.split(",");
-                    for (String  val : cnValues) {
-                      String[] parts = val.split("=");
-                      if (parts != null && parts.length == 2 && parts[0].equalsIgnoreCase("cn") && parts[1] != null && parts[1].length() > 0){
-                        siteDataCurrent.name = parts[1].trim();
-                        if (LOGD) Logger.d(TAG, "Adding hostname to dictionary " + siteDataCurrent.name + " port:" + siteDataCurrent.sourcePort);
-                        siteDataCurrent.certs = certs;
-                        siteData.put(siteDataCurrent.sourcePort, siteDataCurrent);
-                        ipPortSiteData.put(siteDataCurrent.tcpAddress + ":" + siteDataCurrent.destPort, siteDataCurrent);
-                        break;
+          TrustManager[] trustAllCerts = new TrustManager[] {
+                  new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                      return null;
+                    }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                    }
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                      try{
+                        if (certs != null && certs.length > 0 && certs[0].getSubjectDN() != null){
+                          // getting subject common name
+                          String cnValue = certs[0].getSubjectDN().getName();
+                          String[] cnValues = cnValue.split(",");
+                          for (String  val : cnValues) {
+                            String[] parts = val.split("=");
+                            if (parts != null && parts.length == 2 && parts[0].equalsIgnoreCase("cn") && parts[1] != null && parts[1].length() > 0){
+                              siteDataCurrent.name = parts[1].trim();
+                              if (LOGD) Logger.d(TAG, "Adding hostname to dictionary " + siteDataCurrent.name + " port:" + siteDataCurrent.sourcePort);
+                              siteDataCurrent.certs = certs;
+                              siteData.put(siteDataCurrent.sourcePort, siteDataCurrent);
+                              ipPortSiteData.put(siteDataCurrent.tcpAddress + ":" + siteDataCurrent.destPort, siteDataCurrent);
+                              break;
+                            }
+                          }
+                        }
+                      }catch(Exception e){
+                        if (LOGD) Logger.d(TAG, e.getMessage());
                       }
                     }
                   }
-                }catch(Exception e){
-                  if (LOGD) Logger.d(TAG, e.getMessage());
-                }
-              }
-            }
           };
           try {
             if (!ipPortSiteData.containsKey(siteDataCurrent.tcpAddress + ":" + siteDataCurrent.destPort)){
@@ -151,7 +156,10 @@ public class MyNetworkHostNameResolver {
 
   private void getCertificateData(SiteData newSiteData){
     if (!siteData.containsKey(newSiteData.sourcePort)){
-      if (LOGD) Logger.d(TAG, "Add hostname to resolve :" + newSiteData.tcpAddress + " source port " + newSiteData.sourcePort + " uid " + newSiteData.appUID);
+      if (LOGD) Logger.d(TAG, "Add hostname to resolve :" +
+              newSiteData.tcpAddress + " source port " +
+              newSiteData.sourcePort + " uid " +
+              newSiteData.appUID);
       unresolvedSiteData.add(newSiteData);
     }
   }
@@ -210,7 +218,10 @@ public class MyNetworkHostNameResolver {
       if (LOGD) Logger.d(TAG, "Nothing found for site for port " + port);
       return secureHostInit;
     }else{
-      if (LOGD) Logger.d(TAG, "Having site for port " + port + " " +  secureHost.name + " addr: " + secureHost.tcpAddress + " port " + secureHost.destPort);
+      if (LOGD) Logger.d(TAG, "Having site for port " + port + " "
+              +  secureHost.name + " addr: "
+              + secureHost.tcpAddress
+              + " port " + secureHost.destPort);
     }
     return secureHost;
   }

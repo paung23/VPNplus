@@ -35,7 +35,7 @@ public class LocalServerForwarder extends Thread {
 
     private static final String TAG = LocalServerForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
-    private static int LIMIT = 32767;
+    private static int LIMIT = 1368;
 
     private boolean outgoing = false;
     private MyVpnService vpnService;
@@ -79,7 +79,7 @@ public class LocalServerForwarder extends Thread {
             while (clientServer.isAlive() && serverClient.isAlive()) {
                 try {
                     Thread.sleep(10);
-                    } catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                 }
             }
             if (DEBUG) Logger.d(TAG, "Stop forwarding " + clientSocket.getInetAddress().getHostAddress()+ ":" + clientSocket.getPort() + "<->" + serverSocket.getInetAddress().getHostAddress() + ":" + serverSocket.getPort());
@@ -106,8 +106,8 @@ public class LocalServerForwarder extends Thread {
 
         try {
             byte[] buff = new byte[LIMIT];
-            int got = in.read(buff);
-            while (got  > -1) {
+            int got;
+            while ((got = in.read(buff)) > -1) {
                 if (VPNplus.doFilter) {
                     String msg = new String(buff, 0, got);
                     if (VPNplus.asynchronous) {
@@ -120,8 +120,6 @@ public class LocalServerForwarder extends Thread {
                 out.write(buff, 0, got);
                 if (DEBUG) Logger.d(TAG, got + " bytes written to " + metaData.srcIP + ":" + metaData.srcPort + "->" + metaData.destIP + ":" + metaData.destPort);
                 out.flush();
-
-                got = in.read(buff);
             }
             if (DEBUG) Logger.d(TAG, "terminating " + metaData.srcIP + ":" + metaData.srcPort + "->" + metaData.destIP + ":" + metaData.destPort);
         } catch (Exception ignore) {

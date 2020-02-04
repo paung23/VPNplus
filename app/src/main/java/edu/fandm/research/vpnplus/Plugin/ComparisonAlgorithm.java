@@ -2,10 +2,12 @@ package edu.fandm.research.vpnplus.Plugin;
 
 import android.util.Log;
 
+/**
+ * Created by Phyo Thuta Aung
+ */
 public class ComparisonAlgorithm
 {
-    /* A pattern searching function that uses Bad
-       Character Heuristic of Boyer Moore Algorithm */
+    /* A pattern searching function that uses Bad Character Heuristic of Boyer Moore Algorithm */
     public static Boolean search(String text, String pattern, String category)
     {
 
@@ -89,7 +91,7 @@ public class ComparisonAlgorithm
     }
 
 
-    // Levenshstein Distance?
+    // Levenshtein Distance
     private static int editDistance(String input1, String input2)
     {
         int input1Length = input1.length();

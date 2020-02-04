@@ -104,12 +104,12 @@ public class SSLSocketFactoryFactory {
 
     static {
         try {
-            
+
             //CA_NAME = new X500Principal("cn=OWASP Custom CA for "
             //        + java.net.InetAddress.getLocalHost().getHostName()
             //        + " at " + new Date()
             //        + ",ou=OWASP Custom CA,o=OWASP,l=OWASP,st=OWASP,c=OWASP");
-            
+
             CA_NAME = new X500Principal("cn=VPNplus Custom CA"
                     + ",ou=VPNplus Custom CA,o=VPNplus,l=VPNplus,st=VPNplus,c=VPNplus");
         } catch (Exception ex) {
@@ -138,7 +138,7 @@ public class SSLSocketFactoryFactory {
     private Set<BigInteger> serials = new HashSet<BigInteger>();
 
     public SSLSocketFactoryFactory(String fileNameCA, String fileNameCert, String type,
-            char[] password)
+                                   char[] password)
             throws GeneralSecurityException, IOException {
         _logger.setLevel(Level.FINEST);
         this.filenameCA = fileNameCA;
@@ -162,7 +162,7 @@ public class SSLSocketFactoryFactory {
             String storeAlias;
             Enumeration<String> enAliases = keystoreCA.aliases();
             Date lastStoredAliasDate = null;
-            // it should be just one 
+            // it should be just one
             while(enAliases.hasMoreElements()){
                 storeAlias = enAliases.nextElement();
                 Date lastStoredDate = keystoreCA.getCreationDate(storeAlias);
@@ -229,11 +229,11 @@ public class SSLSocketFactoryFactory {
     /**
      * Determines whether the public and private key generated for the CA will
      * be reused for other hosts as well.
-     * 
+     *
      * This is mostly just a performance optimisation, to save time generating a
      * key pair for each host. Paranoid clients may have an issue with this, in
      * theory.
-     * 
+     *
      * @param reuse
      *            true to reuse the CA key pair, false to generate a new key
      *            pair for each host
@@ -244,14 +244,14 @@ public class SSLSocketFactoryFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.owasp.proxy.daemon.CertificateProvider#getSocketFactory(java.lang
      * .String, int)
      */
     public synchronized SSLSocketFactory getSocketFactory(SiteData hostData)
             throws IOException, GeneralSecurityException {
-    	String certEntry = hostData.tcpAddress != null ? hostData.tcpAddress + "_" + hostData.destPort: hostData.name;
+        String certEntry = hostData.tcpAddress != null ? hostData.tcpAddress + "_" + hostData.destPort: hostData.name;
         SSLContext sslContext = (SSLContext) contextCache.get(certEntry);
         if (sslContext == null) {
             X509KeyManager km;
@@ -261,35 +261,33 @@ public class SSLSocketFactoryFactory {
             } else {
                 km = loadKeyMaterial(hostData);
             }
-            
-            // here, trust managers is a single trust-all manager
-            // UH: I think that this fine since it's used for the server side of the TLS connection between PrivacyGuard and the remote server
+
             TrustManager[] trustManagers = new TrustManager[] {
-                new X509TrustManager() {
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return null;
-                    }
+                    new X509TrustManager() {
+                        public X509Certificate[] getAcceptedIssuers() {
+                            return null;
+                        }
 
-                    public void checkClientTrusted(
-                        X509Certificate[] certs, String authType) {
-                        _logger.fine("trust manager checkClientTrusted authType:" + authType);
-                        if (certs != null){
-                            for (int i = 0; i < certs.length; i++) {
-                                _logger.fine("trust manager checkClientTrusted:" + certs[i]);
+                        public void checkClientTrusted(
+                                X509Certificate[] certs, String authType) {
+                            _logger.fine("trust manager checkClientTrusted authType:" + authType);
+                            if (certs != null){
+                                for (int i = 0; i < certs.length; i++) {
+                                    _logger.fine("trust manager checkClientTrusted:" + certs[i]);
+                                }
+                            }
+                        }
+
+                        public void checkServerTrusted(
+                                X509Certificate[] certs, String authType) {
+                            _logger.fine("trust manager checkServerTrusted authType:" + authType);
+                            if (certs != null){
+                                for (int i = 0; i < certs.length; i++) {
+                                    _logger.fine("trust manager checkServerTrusted:" + certs[i]);
+                                }
                             }
                         }
                     }
-
-                    public void checkServerTrusted(
-                        X509Certificate[] certs, String authType) {
-                        _logger.fine("trust manager checkServerTrusted authType:" + authType);
-                        if (certs != null){
-                            for (int i = 0; i < certs.length; i++) {
-                                _logger.fine("trust manager checkServerTrusted:" + certs[i]);
-                            }
-                        }
-                    }
-                }
             };
             sslContext = SSLContext.getInstance("TLS");
             sslContext.init(new KeyManager[] { km }, trustManagers, null);
@@ -306,7 +304,7 @@ public class SSLSocketFactoryFactory {
         }
         return certs;
     }
-    
+
     private X509KeyManager loadKeyMaterial(SiteData hostData) throws GeneralSecurityException, IOException {
         X509Certificate[] certs = null;
         String certEntry = hostData.tcpAddress != null ? hostData.tcpAddress + "_" + hostData.destPort : hostData.name;
@@ -352,7 +350,7 @@ public class SSLSocketFactoryFactory {
         Date begin = new Date();
         Date ends = new Date(begin.getTime() + DEFAULT_VALIDITY);
 
-        
+
         X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
         // X509v3CertificateBuilder   certGen = new X509v3CertificateBuilder();
         certGen.setSerialNumber(BigInteger.ONE);
@@ -409,8 +407,8 @@ public class SSLSocketFactoryFactory {
         X500Principal subject = getSubjectPrincipal(hostData.name);
         Date begin = new Date();
         Date ends = new Date(begin.getTime() + DEFAULT_VALIDITY);
-        
-        
+
+
         X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
         certGen.setSerialNumber(getNextSerialNo());
         certGen.setIssuerDN(caCerts[0].getSubjectX500Principal());
@@ -419,7 +417,7 @@ public class SSLSocketFactoryFactory {
         certGen.setSubjectDN(subject);
         certGen.setPublicKey(keyPair.getPublic());
         certGen.setSignatureAlgorithm("SHA256withRSA");
-        
+
         // generate alternative names
         if (hostData.certs != null && hostData.certs.length > 0){
             Collection<List<?>> coll = hostData.certs[0].getSubjectAlternativeNames();
@@ -442,11 +440,11 @@ public class SSLSocketFactoryFactory {
                 certGen.addExtension(X509Extensions.SubjectAlternativeName, false, subjectAltName);
             }
         }
-        
+
         certGen.addExtension(X509Extensions.AuthorityKeyIdentifier, false,
-                              new AuthorityKeyIdentifierStructure(caCerts[0]));
+                new AuthorityKeyIdentifierStructure(caCerts[0]));
         certGen.addExtension(X509Extensions.SubjectKeyIdentifier, false,
-                             new SubjectKeyIdentifierStructure(keyPair.getPublic()));
+                new SubjectKeyIdentifierStructure(keyPair.getPublic()));
         X509Certificate cert = certGen.generate(caKey, "BC");
 
         //_logger.fine(cert.toString());
@@ -458,7 +456,7 @@ public class SSLSocketFactoryFactory {
         PrivateKey pk = keyPair.getPrivate();
 
         String certEntry = hostData.tcpAddress != null ? hostData.tcpAddress + "_" + hostData.destPort : hostData.name;
-        
+
         keystoreCert.setKeyEntry(certEntry, pk, passwordCerts, chain);
         saveKeystore(keystoreCert, filenameCert, passwordCerts);
         return new HostKeyManager(hostData, pk, chain);
@@ -473,20 +471,20 @@ public class SSLSocketFactoryFactory {
         private X509Certificate[] certs;
 
         public HostKeyManager(SiteData hostData, PrivateKey pk,
-                X509Certificate[] certs) {
+                              X509Certificate[] certs) {
             this.hostData = hostData;
             this.pk = pk;
             this.certs = certs;
         }
 
         public String chooseClientAlias(String[] keyType, Principal[] issuers,
-                Socket socket) {
+                                        Socket socket) {
             return null;
             // throw new UnsupportedOperationException("Not implemented");
         }
 
         public String chooseServerAlias(String keyType, Principal[] issuers,
-                Socket socket) {
+                                        Socket socket) {
             return hostData.name;
         }
 
@@ -504,11 +502,11 @@ public class SSLSocketFactoryFactory {
         }
 
         public String[] getServerAliases(String keyType, Principal[] issuers) {
-            
+
 //            if (hostData.alternativeNames == null || hostData.alternativeNames.size() == 0){
 //                return new String[]{hostData.name};
 //            }
-//            
+//
 //            return (String[]) hostData.alternativeNames.toArray();
             return new String[]{hostData.name};
         }

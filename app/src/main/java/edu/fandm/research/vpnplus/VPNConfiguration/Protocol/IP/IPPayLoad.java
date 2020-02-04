@@ -3,6 +3,10 @@ package edu.fandm.research.vpnplus.VPNConfiguration.Protocol.IP;
 import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 import edu.fandm.research.vpnplus.VPNConfiguration.Protocol.TransportHeader;
 
+/**
+ * Created by frank on 2014-03-26.
+ */
+
 public abstract class IPPayLoad {
   private static final String TAG = "IPPayLoad";
   protected TransportHeader header;

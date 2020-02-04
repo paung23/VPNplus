@@ -22,6 +22,9 @@ import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 
 import static edu.fandm.research.vpnplus.Application.Logger.getDiskFileDir;
 
+/**
+ * Created by frank on 2014-06-03.
+ */
 public class LocalServer extends Thread {
     public static final int SSLPort = 443;
     private static final boolean DEBUG = false;
@@ -32,12 +35,12 @@ public class LocalServer extends Thread {
     private TLSWhiteList tlsWhiteList= new TLSWhiteList(getDiskFileDir(), "TLSInterceptFailures");
 
     public LocalServer(MyVpnService vpnService) {
-            try {
-                listen();
-            } catch (IOException e) {
-                if(DEBUG) Logger.d(TAG, "Listen error");
-                e.printStackTrace();
-            }
+        try {
+            listen();
+        } catch (IOException e) {
+            if(DEBUG) Logger.d(TAG, "Listen error");
+            e.printStackTrace();
+        }
         this.vpnService = vpnService;
     }
 
@@ -87,6 +90,7 @@ public class LocalServer extends Thread {
                 Socket target = new Socket();
                 target.bind(null);
                 vpnService.protect(target);
+                // TODO: why do this and the call above return different results?
                 descriptor = vpnService.getClientAppResolver().getClientDescriptorByPort(client.getPort());
                 target.connect(new InetSocketAddress(descriptor.getRemoteAddress(), descriptor.getRemotePort()));
 

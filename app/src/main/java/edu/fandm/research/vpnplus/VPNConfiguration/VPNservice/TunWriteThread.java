@@ -24,6 +24,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Created by y59song on 02/06/14.
+ */
 public class TunWriteThread extends Thread {
     private final FileOutputStream localOut;
     private LinkedBlockingQueue<byte[]> writeQueue = new LinkedBlockingQueue<>();

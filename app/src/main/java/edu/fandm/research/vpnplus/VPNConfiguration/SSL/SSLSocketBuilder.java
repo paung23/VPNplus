@@ -64,12 +64,16 @@ public class SSLSocketBuilder {
         }
     }
 
-    public static SSLSocket negotiateSSL(Socket sock, SiteData hostData, boolean useOnlyWiresharkDissCiphers, SSLSocketFactoryFactory sslSocketFactoryFactory) throws Exception {
+    public static SSLSocket negotiateSSL(
+            Socket sock, SiteData hostData,boolean useOnlyWiresharkDissCiphers,
+            SSLSocketFactoryFactory sslSocketFactoryFactory)
+            throws Exception {
         String certEntry = hostData.tcpAddress != null ? hostData.tcpAddress + "_" + hostData.destPort: hostData.name;
         if(DEBUG) Logger.d(TAG, certEntry);
         SSLSocketFactory factory = sslSocketFactoryFactory.getSocketFactory(hostData);
         if (factory == null)
-            throw new RuntimeException("SSL Intercept not available - no keystores available");
+            throw new RuntimeException(
+                    "SSL Intercept not available - no keystores available");
         SSLSocket sslsock;
         try {
             int sockPort = sock.getPort();

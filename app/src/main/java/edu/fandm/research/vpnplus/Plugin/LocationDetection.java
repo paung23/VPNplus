@@ -24,6 +24,9 @@ import java.util.Map;
 import edu.fandm.research.vpnplus.Application.Logger;
 import edu.fandm.research.vpnplus.Utilities.StringUtil;
 
+/**
+ * Created by frank on 2014-06-23.
+ */
 public class LocationDetection implements IPlugin {
     private final static String TAG = LocationDetection.class.getSimpleName();
     private final static boolean DEBUG = false;
@@ -32,8 +35,6 @@ public class LocationDetection implements IPlugin {
     private static LocationManager mLocationManager;
     private static Map<String, Location> mLocations = Collections.synchronizedMap(new HashMap<String, Location>());
     private static String routerMacAddress, routerMacAddressEnc;
-
-    private static Geocoder geocoder;
 
     @Override
     @Nullable
@@ -49,42 +50,40 @@ public class LocationDetection implements IPlugin {
             //    return rpt;
             //}
 
+            double latD = ((int) (loc.getLatitude() * 10)) / 10.0;
+            double lonD = ((int) (loc.getLongitude() * 10)) / 10.0;
+            String latS = String.valueOf(latD);
+            String lonS = String.valueOf(lonD);
 
-            String latS = String.valueOf(loc.getLatitude());
-            String lonS = String.valueOf(loc.getLongitude());
+            //String zipCode = "17604"; ///Phyo: Cannot use geocoder to retrieve zip code on all devices so I commented it out
 
-
-            String zipCode = getZipCodeFromLocation(loc);
-
-
-            if ((ComparisonAlgorithm.search(requestStr, latS, "latitude")) || (ComparisonAlgorithm.search(requestStr, lonS, "longitude"))) {// || (requestStr.contains(latS.replace(".", "")) && requestStr.contains(lonS.replace(".", "")))) {
+            if ((requestStr.contains(latS)) || (requestStr.contains(lonS)) || (ComparisonAlgorithm.search(requestStr, latS, "latitude")) || (ComparisonAlgorithm.search(requestStr, lonS, "longitude"))) {// || (requestStr.contains(latS.replace(".", "")) && requestStr.contains(lonS.replace(".", "")))) {
                 LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
-                rpt.addLeak(new LeakInstance("location", latS + ", " + lonS));
+                rpt.addLeak(new LeakInstance("GPS Coordinates", latS + "/" + lonS));
                 return rpt;
             }
 
             if(routerMacAddress != null) {
-                if (ComparisonAlgorithm.search(requestStr, routerMacAddress, "mac")) {
+                if ( requestStr.contains(routerMacAddress) || ComparisonAlgorithm.search(requestStr, routerMacAddress, "mac")) {
                     LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
-                    rpt.addLeak(new LeakInstance("MacAddress", routerMacAddress));
+                    rpt.addLeak(new LeakInstance("MAC Address", routerMacAddress));
                     return rpt;
                 }
 
-                if (ComparisonAlgorithm.search(requestStr, routerMacAddressEnc, "mac")) {
+                if (requestStr.contains(routerMacAddressEnc) || ComparisonAlgorithm.search(requestStr, routerMacAddressEnc, "mac")) {
                     LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
-                    rpt.addLeak(new LeakInstance("MacAddressEnc", routerMacAddressEnc));
+                    rpt.addLeak(new LeakInstance("MAC Address", routerMacAddressEnc));
                     return rpt;
                 }
             }
 
-            if (zipCode != null)
-            {
-                if (ComparisonAlgorithm.search(requestStr, zipCode, "zipcode")) {
-                    LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
-                    rpt.addLeak(new LeakInstance("Zip Code", zipCode));
-                    return rpt;
-                }
+            /**
+            if (requestStr.contains(zipCode) || ComparisonAlgorithm.search(requestStr, zipCode, "zipcode")) {
+                LeakReport rpt = new LeakReport(LeakReport.LeakCategory.LOCATION);
+                rpt.addLeak(new LeakInstance("Zip Code", zipCode));
+                return rpt;
             }
+             */
         }
         return null;
     }
@@ -114,38 +113,14 @@ public class LocationDetection implements IPlugin {
                 updateLastLocations();
                 Logger.logLastLocations(mLocations, true);
 
-                geocoder = new Geocoder(context, Locale.getDefault());
-
                 WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
                 WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                 routerMacAddress = wifiInfo.getBSSID();
-
-                if(routerMacAddress != null) {
-                    if (DEBUG) Logger.d(TAG, routerMacAddress);
-                    routerMacAddressEnc = StringUtil.encodeColon(routerMacAddress);
-                    if (DEBUG) Logger.d(TAG, routerMacAddressEnc);
-                }
+                if (DEBUG) Logger.d(TAG, routerMacAddress);
+                routerMacAddressEnc = StringUtil.encodeColon(routerMacAddress);
+                if (DEBUG) Logger.d(TAG, routerMacAddressEnc);
             }
         }
-    }
-
-    private Address getAddressFromLocation(Location location) {
-        Address address = new Address(Locale.getDefault());
-        try {
-            List<Address> addr = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            if (addr.size() > 0) {
-                address = addr.get(0);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return address;
-    }
-
-    private String getZipCodeFromLocation(Location location) {
-        Address addr = getAddressFromLocation(location);
-        return addr.getPostalCode();
     }
 
     public void updateLastLocations() {

@@ -6,6 +6,9 @@ import java.util.Arrays;
 
 import edu.fandm.research.vpnplus.Utilities.ByteOperations;
 
+/**
+ * Created by y59song on 28/05/14.
+ */
 public class IPv4Header extends IPHeader {
     public IPv4Header(byte[] data) {
         lengthIndex = 2;

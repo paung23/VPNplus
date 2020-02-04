@@ -20,6 +20,10 @@ import java.net.InetAddress;
 
 import edu.fandm.research.vpnplus.Application.Logger;
 
+/**
+ * Created by y59song on 04/06/14.
+ */
+
 public class MyClientResolver implements IClientResolver {
   private static boolean DEBUG = false;
   private static String TAG = MyClientResolver.class.getSimpleName();
@@ -96,6 +100,9 @@ public class MyClientResolver implements IClientResolver {
         }
       }
 
+      // this means that no connection with that port could be found in the tcp6 file
+      // try the tcp one
+
       tcp = new File(NetworkInfo.TCP_4_FILE_PATH);
       reader = new BufferedReader(new FileReader(tcp));
       builder = new StringBuilder();
@@ -139,7 +146,7 @@ public class MyClientResolver implements IClientResolver {
               String name = (String)packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0));
               //String name = pInfo.applicationInfo.name;
               return new ConnectionDescriptor(new String[]{packageName}, new String[]{name}, new String[]{version}, NetworkInfo.TCP_TYPE, status,
-                srcAddressEntry, srcPort, dstAddressEntry, dstPort, null, uidEntry);
+                      srcAddressEntry, srcPort, dstAddressEntry, dstPort, null, uidEntry);
             }
           }
         }

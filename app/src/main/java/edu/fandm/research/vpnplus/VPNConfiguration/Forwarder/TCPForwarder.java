@@ -39,7 +39,7 @@ import edu.fandm.research.vpnplus.VPNConfiguration.VPNservice.MyVpnService;
 /**
  * Created by frank on 2014-03-27.
  */
-public class TCPForwarder extends AbsForwarder {
+public class TCPForwarder extends AbsForwarder { //implements ICommunication {
     private static final String TAG = TCPForwarder.class.getSimpleName();
     private static final boolean DEBUG = false;
     private final int WAIT_BEFORE_RELEASE_PERIOD_AFTER_CLOSE = 60000;
@@ -76,20 +76,22 @@ public class TCPForwarder extends AbsForwarder {
         }
         TCPDatagram response = new TCPDatagram(conn_info.getTransHeader(len, TCPHeader.SYNACK), null, conn_info.getDstAddress());
         if (DEBUG) Logger.d(TAG, "LISTEN: Responded with " + response.headerToString());
-        conn_info.increaseSeq(forwardResponse(conn_info.getIPHeader(), response));
+        conn_info.increaseSeq(
+                forwardResponse(conn_info.getIPHeader(), response)
+        );
         status = Status.SYN_ACK_SENT;
         if (DEBUG) Logger.d(TAG, "LISTEN: Switched to SYN_ACK_SENT");
         return true;
     }
 
-/*
-* step 1 : reverse the IP header
-* step 2 : create a new TCP header, set the syn, ack right
-* step 3 : get the response if necessary
-* step 4 : combine the response and create a new tcp datagram
-* step 5 : update the datagram's checksum
-* step 6 : combine the tcp datagram and the ip datagram, update the ip header
-*/
+    /*
+     * step 1 : reverse the IP header
+     * step 2 : create a new TCP header, set the syn, ack right
+     * step 3 : get the response if necessary
+     * step 4 : combine the response and create a new tcp datagram
+     * step 5 : update the datagram's checksum
+     * step 6 : combine the tcp datagram and the ip datagram, update the ip header
+     */
 
     private boolean handle_SYN_ACK_SENT(byte flag) {
         if(flag != TCPHeader.ACK) {
@@ -138,6 +140,7 @@ public class TCPForwarder extends AbsForwarder {
     private boolean handle_HALF_CLOSE_BY_CLIENT(byte flag) {
         assert(flag == TCPHeader.ACK);
         if ((flag != TCPHeader.ACK)) {
+//TODO: find out why this would happen
             if (DEBUG) Logger.e(TAG, "ACK is 0");
             return false;
         }
@@ -199,8 +202,8 @@ public class TCPForwarder extends AbsForwarder {
     }
 
     /*
-    *  methods for AbsForwarder
-    */
+     *  methods for AbsForwarder
+     */
     public boolean setup(InetAddress srcAddress, int src_port, InetAddress dstAddress, int dst_port) {
         vpnService.getClientAppResolver().setLocalPortToRemoteMapping(src_port, dstAddress.getHostAddress(), dst_port);
 
@@ -234,9 +237,9 @@ public class TCPForwarder extends AbsForwarder {
 
     //@Override
     //public void open() {
-     //   if (!closed) return;
-     //   //super.open();
-      //  status = Status.LISTEN;
+    //   if (!closed) return;
+    //   //super.open();
+    //  status = Status.LISTEN;
     //}
 
     //public void close() {
@@ -263,6 +266,9 @@ public class TCPForwarder extends AbsForwarder {
         );
     }
 
+    /*
+     * Methods for ICommunication
+     */
     public void send(IPPayLoad payLoad) {
         if(isClosed()) {
             status = Status.HALF_CLOSE_BY_SERVER;
